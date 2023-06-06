@@ -1,17 +1,79 @@
 # Courier Mate
-Courier Mate is a web app that connects clients with couriers. Clients can post jobs and couriers can bid on those jobs. Once a courier is selected, they will pick up the package and deliver it to the client's destination.
+The courier registers in the system and offers his services: his own transport (bicycle, quad bike, drone, car ..), types of goods transported. The administrator confirms\rejects the Courier's Application. The client places an order for delivery and selects a Courier, rates the Couriers. The system issues an Invoice to the Client. The administrator manages users and system content.
 
-## Features
-- Post jobs: Clients can post jobs with a description of the package, the pickup and delivery locations, and the desired delivery date.
-- Bid on jobs: Couriers can bid on jobs by specifying their price and the time they can deliver the package.
-- Track jobs: Clients can track the status of their jobs, including the location of the package and the estimated delivery time.
-- Rate couriers: Clients can rate couriers after their packages have been delivered.
+## Progress report
+
+| Tasks                  | Start Date | End Date   |
+|------------------------|------------|------------|
+| Gathering requirements | 06-June-23 | 08-June-23 |
+| Design Basic flow      | 09-June-23 | 10-June-23 |
+| Entity Design          | 11-June-23 | 12-June-23 |
+| Data Access Layer      | 13-June-23 | 14-June-23 |
+| Service Layer          | 15-June-23 | 16-June-23 |
+| Controller Layer       | 17-June-23 | 18-June-23 |
+| Polish UI              | 19-June-23 | 20-June-23 |
+| Testing                | 21-June-23 | 22-June-23 |
+| Present and Finish     | 23-June-23 | 25-June-23 |
+
+## Screenshots
+
+<div style="display: flex; flex-wrap: wrap">
+<div align="center">
+  <img src="image/01_console.png?raw=true" width="90%" height="auto"/>
+  <img src="image/02_console.png?raw=true" width="90%" height="auto"/>
+</div>
+</div>
+
 
 ## Getting Started
-To get started with Courier Connect, you will need to create an account. Once you have created an account, you can post jobs, bid on jobs, and track jobs.
+To get started with this project, follow these steps:
+
+- Clone the repository to your local machine.
+- Install in pom.xml file.
+- Run the application using your IDEA's run button on Main class.
+- Console window will be opened.
+- you can play around with this interactive console to retrieve all inventories or by their parameters;
+
+## Features
+This project includes the following features:
+
+- The courier registers in the system and offers his services: his own transport (bicycle, quad bike, drone, car ..), types of goods transported.
+- The administrator confirms\rejects the Courier's Application. 
+- The client places an order for delivery and selects a Courier, rates the Couriers. 
+- The system issues an Invoice to the Client. 
+- The administrator manages users and system content.
+
+## Testing
+- Administrator, Client, Courier 
+- DAO, DTO, and all other layers
+
+## Technologies Used
+This project was built using the following technologies:
+
+- Java 17.0.2
+- Maven
+- Dependencies (Lombok, Javax.servlet)
+
+## Authors
+
+👤 **Sarvar Khalimov**
+
+- GitHub: [SarvarKh](https://github.com/SarvarKh)
+- Twitter: [KhalimovSarvar](https://twitter.com/KhalimovSarvar)
+- LinkedIn: [Sarvar-Khalimov](https://www.linkedin.com/in/sarvar-khalimov/)
+
 
 ## Contributing
-Courier Mate is an open source project. If you would like to contribute, please fork the repository and submit a pull request.
+If you would like to contribute to this project, please follow these steps:
+
+- Fork the repository.
+- Create a new branch for your feature or bug fix.
+- Make your changes and commit them.
+- Push your changes to your fork.
+- Submit a pull request.
+
+## Show your support
+Give a ⭐️ if you like this project!
 
 ## License
 This project is [MIT](./MIT.md) licensed.
