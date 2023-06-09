@@ -15,6 +15,14 @@ The courier registers in the system and offers his services: his own transport (
 | Testing                | 21-June-23 | 22-June-23 |
 | Present and Finish     | 23-June-23 | 25-June-23 |
 
+## ER Diagram
+
+<div style="display: flex; flex-wrap: wrap">
+<div align="center">
+  <img src="image/erd.png?raw=true" width="90%" height="auto"/>
+</div>
+</div>
+
 ## Screenshots
 
 <div style="display: flex; flex-wrap: wrap">
