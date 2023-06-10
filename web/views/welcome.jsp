@@ -1,5 +1,4 @@
 <div>
-
     <div class="container" style="opacity: 80%;">
         <div class="d-flex align-items-center">
             <div class="accordion" id="accordionPanelsStayOpenExample" style="width: 50%; margin-top: 3rem">

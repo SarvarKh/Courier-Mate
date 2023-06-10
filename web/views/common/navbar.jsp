@@ -14,27 +14,28 @@
           </li>
         </ul>
         <div class="d-flex">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Log in
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Log in as client</a></li>
-                <li><a class="dropdown-item" href="#">Log in as driver</a></li>
-              </ul>
-            </li>
-
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Sign up
-              </a>
-              <ul class="dropdown-menu float-right" style="right: 0; left: auto">
-                <li><a class="dropdown-item" href="#">Sign up as client</a></li>
-                <li><a class="dropdown-item" href="#">Sign up as driver</a></li>
-              </ul>
-            </li>
-          </ul>
+<%--          <ul class="navbar-nav me-auto mb-2 mb-lg-0">--%>
+<%--            <a class="dropdown-item" href="/views/authorization/couriersignup.jsp">Register</a>--%>
+<%--          </ul>--%>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            Registration
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a class="btn" href="/views/authorization/couriersignup.jsp" role="button">Sign up as Courier</a>
+                                <a class="btn" href="#" role="button">Sign up as Client</a>
+                                <a class="btn" href="#" role="button">Log in as Courier</a>
+                                <a class="btn" href="#" role="button">Log in as Client</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
       </div>
     </div>
