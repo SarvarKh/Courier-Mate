@@ -1,4 +1,4 @@
-<%--
+<%@ page import="sarvar.group.service.DBConnection" %><%--
   Created by IntelliJ IDEA.
   User: sarvarkhalimov
   Date: 09/06/23
@@ -14,6 +14,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 <body>
+<%
+    DBConnection dbConnection = new DBConnection();
+%>
     <div style="background-image: url('./assets/img/nys1.jpeg'); background-attachment: fixed;
   background-size: cover; height: 100%">
         <%@ include file="views/common/navbar.jsp"%>
