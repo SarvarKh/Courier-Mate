@@ -20,7 +20,14 @@
     <div style="background-image: url('./assets/img/nys1.jpeg'); background-attachment: fixed;
   background-size: cover; height: 100%">
         <%@ include file="views/common/navbar.jsp"%>
-        <%@ include file="views/welcome.jsp"%>
+        <div class="container">
+            <section id="home" style="height: 100vh">
+                <%@ include file="views/welcome.jsp"%>
+            </section>
+            <section id="safety" style="height: 100vh">
+                <%@ include file="views/safety.jsp"%>
+            </section>
+        </div>
         <%@ include file="views/common/footer.jsp"%>
     </div>
 

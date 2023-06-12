@@ -64,6 +64,7 @@
 <body>
     <div style="background-image: url('../../assets/img/nys1.jpeg'); background-attachment: fixed;
         background-size: cover; height: 100%">
+        <%@ include file="../common/navbar.jsp"%>
             <div class="login-page" style="opacity: 90%;">
                 <div class="form">
                     <form class="login-form" action="/courierlogin" method="post">
