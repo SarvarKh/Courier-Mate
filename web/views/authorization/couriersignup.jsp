@@ -58,6 +58,7 @@
               </div>
           </form>
       </div>
+      <%@include file="../common/notification.jsp"%>
       <%@include file="../common/footer.jsp"%>
   </div>
   <script type="text/javascript">

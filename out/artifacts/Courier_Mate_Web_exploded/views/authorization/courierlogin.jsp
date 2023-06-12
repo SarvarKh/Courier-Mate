@@ -66,10 +66,10 @@
         background-size: cover; height: 100%">
             <div class="login-page" style="opacity: 90%;">
                 <div class="form">
-                    <form class="login-form" action="/courier">
-                        <input type="email" placeholder="email"/>
-                        <input type="password" placeholder="password"/>
-                        <button class="btn btn-secondary">login</button>
+                    <form class="login-form" action="/courierlogin" method="post">
+                        <input name="email" type="email" placeholder="email"/>
+                        <input name="password" type="password" placeholder="password"/>
+                        <button class="btn btn-secondary" type="submit">login</button>
                         <p class="message">Not registered? <a href="/views/authorization/couriersignup.jsp">Create a courier account</a></p>
                     </form>
                 </div>
