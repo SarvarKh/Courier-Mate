@@ -33,7 +33,7 @@
                                 <a class="btn" href="/views/authorization/couriersignup.jsp" role="button">Sign up as Courier</a>
                                 <a class="btn" href="/views/authorization/clientsignup.jsp" role="button">Sign up as Client</a>
                                 <a class="btn" href="/views/authorization/courierlogin.jsp" role="button">Log in as Courier</a>
-                                <a class="btn" href="#" role="button">Log in as Client</a>
+                                <a class="btn" href="/views/authorization/clientlogin.jsp" role="button">Log in as Client</a>
                             </div>
                         </div>
                     </div>

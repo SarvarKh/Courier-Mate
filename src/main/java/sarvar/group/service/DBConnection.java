@@ -70,4 +70,22 @@ public class DBConnection {
 
         return new DBResult(message, success);
     }
+
+    public static DBResult loginClient(String email, String password) throws ClassNotFoundException, SQLException {
+        Class.forName("org.postgresql.Driver");
+        Connection connection = DriverManager.getConnection(url, dbUserName, dbPassword);
+        String query = "{call login_client(?,?,?,?)}";
+
+        CallableStatement statement = connection.prepareCall(query);
+        statement.setString(1, email);
+        statement.setString(2, password);
+        statement.registerOutParameter(3, Types.VARCHAR);
+        statement.registerOutParameter(4, Types.BOOLEAN);
+        statement.executeUpdate();
+
+        String message = statement.getString(3);
+        boolean success = statement.getBoolean(4);
+
+        return new DBResult(message, success);
+    }
 }
