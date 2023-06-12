@@ -18,5 +18,4 @@ public class Courier {
     private String phoneNumber;
     private Active active;
     private String password;
-    private Integer addressId;
 }

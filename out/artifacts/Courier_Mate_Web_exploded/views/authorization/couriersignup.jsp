@@ -8,14 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Authorization</title>
+    <title>Sign up</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 <body>
   <div style="background-image: url('../../assets/img/nys1.jpeg'); background-attachment: fixed;
     background-size: cover; height: 100%">
       <div class="container">
-          <form action="/courier" method="post" class="row needs-validation bg-body-secondary rounded p-1" novalidate style="top: 5rem; position: absolute; width: 80%;">
+          <form action="${pageContext.request.contextPath}/courier" method="post" class="row needs-validation bg-body-secondary rounded p-1" novalidate style="top: 5rem; position: absolute; width: 80%;">
               <div class="col-md-4">
                   <label for="firstName" class="form-label">First name</label>
                   <input name="firstName" type="text" class="form-control" id="firstName" required>
@@ -40,10 +40,15 @@
                       <option value="NOT_ACCEPTING_ORDERS">NOT_ACCEPTING_ORDERS (I'll sign up, may accept orders later)</option>
                   </select>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-2">
                   <label for="password" class="form-label">Password</label>
-                  <input name="password" type="text" class="form-control" id="password" required>
+                  <input name="password" type="password" class="form-control" id="password" required>
               </div>
+              <div class="col-md-2">
+                  <label for="prepassword" class="form-label">Pre-password</label>
+                  <input name="prepassword" type="password" class="form-control" id="prepassword" required>
+              </div>
+
               <div class="alert alert-danger" role="alert" id="error_message" style="display: none">
                   A simple danger alert—check it out!
               </div>
@@ -63,6 +68,7 @@
           let phoneNumber = document.getElementById("phoneNumber").value;
           let active = document.getElementById("active").value;
           let password = document.getElementById("password").value;
+          let prepassword = document.getElementById("prepassword").value;
           let errorMessage = [""];
 
           if (firstName.length == 0) {
@@ -82,6 +88,9 @@
           }
           if (password.length <= 4) {
               errorMessage.push("Password must be at least 5 characters");
+          }
+          if (password != prepassword) {
+              errorMessage.push("Password and pre-password must be match");
           }
 
 
