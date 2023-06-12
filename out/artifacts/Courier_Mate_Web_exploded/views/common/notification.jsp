@@ -17,7 +17,9 @@
                         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
                     <div class="toast-body">
-                        <strong>Server processed the input / request:</strong> <% dbResult.getMessage(); %>
+                        <strong>
+                            <%= dbResult.getMessage() %>
+                        </strong>
                     </div>
                 </div>
             </div>
@@ -27,11 +29,13 @@
             <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast">
                 <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="display: block; visibility: visible; background-color: #f1aeb5">
                     <div class="toast-header" style="background-color: #f1aeb5">
-                        <strong class="me-auto">Unsuccessful processing</strong>
+                        <strong class="me-auto">Sorry, unsuccessful processing</strong>
                         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
                     <div class="toast-body">
-                        <strong>Server invalidated the input / request:</strong> <% dbResult.getMessage(); %>
+                        <strong>
+                            <%= dbResult.getMessage() %>
+                        </strong>
                     </div>
                 </div>
             </div>
