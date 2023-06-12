@@ -9,14 +9,20 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/courier">Courier</a>
-          </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Safety</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Help</a>
+            </li>
         </ul>
         <div class="d-flex">
 <%--          <ul class="navbar-nav me-auto mb-2 mb-lg-0">--%>
 <%--            <a class="dropdown-item" href="/views/authorization/couriersignup.jsp">Register</a>--%>
 <%--          </ul>--%>
+
+            <a class="btn " href="#">Profile</a>
+            <a class="btn " href="#">Deliveries</a>
             <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item">
                     <h2 class="accordion-header">

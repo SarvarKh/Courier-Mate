@@ -9,9 +9,12 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Safety</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Help</a>
+            </li>
         </ul>
         <div class="d-flex">
 <%--          <ul class="navbar-nav me-auto mb-2 mb-lg-0">--%>
@@ -28,7 +31,7 @@
                         <div class="accordion-body">
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a class="btn" href="/views/authorization/couriersignup.jsp" role="button">Sign up as Courier</a>
-                                <a class="btn" href="#" role="button">Sign up as Client</a>
+                                <a class="btn" href="/views/authorization/clientsignup.jsp" role="button">Sign up as Client</a>
                                 <a class="btn" href="/views/authorization/courierlogin.jsp" role="button">Log in as Courier</a>
                                 <a class="btn" href="#" role="button">Log in as Client</a>
                             </div>

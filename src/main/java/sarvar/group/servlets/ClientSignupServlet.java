@@ -1,5 +1,8 @@
 package sarvar.group.servlets;
 
+import sarvar.group.domains.Client;
+import sarvar.group.domains.Courier;
+import sarvar.group.domains.util.Active;
 import sarvar.group.service.DBConnection;
 import sarvar.group.service.DBResult;
 
@@ -13,17 +16,23 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/courierlogin")
-public class CourierLoginServlet extends HttpServlet {
+@WebServlet("/clientsignup")
+public class ClientSignupServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Client client = new Client();
         String email = req.getParameter("email");
-        String password = req.getParameter("password");
 
-        DBConnection dbConnection = new DBConnection();
+        client.setFirstName(req.getParameter("firstName"));
+        client.setLastName(req.getParameter("lastName"));
+        client.setEmail(email);
+        client.setPhoneNumber(req.getParameter("phoneNumber"));
+        client.setPassword(req.getParameter("password"));
+
+        DBConnection connection = new DBConnection();
         DBResult dbResult = null;
         try {
-            dbResult = dbConnection.loginCourier(email, password);
+            dbResult = connection.addClient(client);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
@@ -35,13 +44,13 @@ public class CourierLoginServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("email", email);
 
-            RequestDispatcher reqD = req.getRequestDispatcher("/views/courier/courier.jsp");
-            reqD.forward(req, resp);
+            RequestDispatcher reqd = req.getRequestDispatcher("/views/client/client.jsp");//("/home.jsp"); //("/views/courier.jsp");
+            reqd.forward(req, resp);
         } else {
-            RequestDispatcher reqD = req.getRequestDispatcher("/views/authorization/courierlogin.jsp");
+            RequestDispatcher reqD = req.getRequestDispatcher("/views/authorization/clientsignup.jsp");
             reqD.forward(req, resp);
         }
 
-
+//        resp.sendRedirect("/");
     }
 }
