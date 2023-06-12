@@ -66,7 +66,7 @@
         background-size: cover; height: 100%">
             <div class="login-page" style="opacity: 90%;">
                 <div class="form">
-                    <form class="login-form">
+                    <form class="login-form" action="/courier">
                         <input type="email" placeholder="email"/>
                         <input type="password" placeholder="password"/>
                         <button class="btn btn-secondary">login</button>

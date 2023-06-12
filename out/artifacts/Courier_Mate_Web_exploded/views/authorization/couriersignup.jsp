@@ -15,7 +15,7 @@
   <div style="background-image: url('../../assets/img/nys1.jpeg'); background-attachment: fixed;
     background-size: cover; height: 100%">
       <div class="container">
-          <form action="${pageContext.request.contextPath}/courier" method="post" class="row needs-validation bg-body-secondary rounded p-1" novalidate style="top: 5rem; position: absolute; width: 80%;">
+          <form action="${pageContext.request.contextPath}/couriersignup" method="post" class="row needs-validation bg-body-secondary rounded p-1" novalidate style="top: 5rem; position: absolute; width: 80%;">
               <div class="col-md-4">
                   <label for="firstName" class="form-label">First name</label>
                   <input name="firstName" type="text" class="form-control" id="firstName" required>
