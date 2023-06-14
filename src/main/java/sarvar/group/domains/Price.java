@@ -13,7 +13,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class Price {
     private Integer id;
-    private Long distance_min;
-    private Long distance_max;
+    private Integer distanceMin;
+    private Integer distanceMax;
     private BigDecimal tariff;
+    private Integer courierId;
 }
