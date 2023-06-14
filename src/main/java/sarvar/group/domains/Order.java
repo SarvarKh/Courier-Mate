@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sarvar.group.domains.util.PaymentType;
+import sarvar.group.domains.util.Status;
 
 import java.math.BigDecimal;
 
@@ -14,13 +15,16 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class Order {
     private Integer id;
-    private Integer transportId;
-    private String startGeohash;
-    private String finishGeohash;
-    private Integer orderNumber;
-    private PaymentType paymentType;
-    private Integer priceId;
-    private BigDecimal totalAmount;
     private Integer courierId;
     private Integer clientId;
+
+    private Integer travelDistance; // in meters
+    private String travelTime; // in minutes
+    private Integer orderNumber;
+    private PaymentType paymentType;
+    private BigDecimal totalAmount;
+    private Integer transportId;
+    private Integer priceId;
+    private Status status;
+
 }

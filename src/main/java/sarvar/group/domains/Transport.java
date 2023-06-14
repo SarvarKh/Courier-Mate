@@ -15,4 +15,5 @@ public class Transport {
     private Integer id;
     private String name;
     private BigDecimal rate;
+    private Integer courierId;
 }
