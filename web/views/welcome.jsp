@@ -12,7 +12,7 @@
                         <div class="accordion-body">
                             <strong>Get in the driver's seat and get paid</strong>
                             <div>
-                                <a class="btn btn-secondary" href="#" role="button">Sign up</a>
+                                <a class="btn btn-secondary" href="${pageContext.request.contextPath}/views/authorization/couriersignup.jsp" role="button">Sign up</a>
                             </div>
                         </div>
                     </div>

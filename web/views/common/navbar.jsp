@@ -10,6 +10,9 @@
             <a class="nav-link active" aria-current="page" href="/home.jsp#home">Home</a>
           </li>
             <li class="nav-item">
+                <a class="nav-link" href="/views/order.jsp">Order Delivery</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/home.jsp#safety">Safety</a>
             </li>
             <li class="nav-item">
