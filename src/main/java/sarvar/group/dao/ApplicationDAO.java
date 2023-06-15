@@ -1,4 +1,4 @@
-package sarvar.group.service;
+package sarvar.group.dao;
 
 import sarvar.group.domains.Client;
 import sarvar.group.domains.Courier;
@@ -11,9 +11,7 @@ public class ApplicationDAO {
     private static String dbUserName = "postgres";
     private static String dbPassword = null;
 
-    public static DBResult addCorier(Courier courier) throws ClassNotFoundException, SQLException {
-        Class.forName("org.postgresql.Driver");
-        Connection connection = DriverManager.getConnection(url, dbUserName, dbPassword);
+    public static DBResult addCorier(Courier courier, Connection connection) throws ClassNotFoundException, SQLException {
         String query = "{call add_courier(?,?,?,?,?,?,?,?)}";
 
         CallableStatement statement = connection.prepareCall(query);
@@ -33,9 +31,7 @@ public class ApplicationDAO {
         return new DBResult(message, success, null);
     }
 
-    public static DBResult loginCourier(String email, String password) throws ClassNotFoundException, SQLException {
-        Class.forName("org.postgresql.Driver");
-        Connection connection = DriverManager.getConnection(url, dbUserName, dbPassword);
+    public static DBResult loginCourier(String email, String password, Connection connection) throws ClassNotFoundException, SQLException {
         String query = "{call login_courier(?,?,?,?,?)}";
 
         CallableStatement statement = connection.prepareCall(query);
@@ -53,9 +49,7 @@ public class ApplicationDAO {
         return new DBResult(message, success, courierId);
     }
 
-    public static DBResult addClient(Client client) throws ClassNotFoundException, SQLException {
-        Class.forName("org.postgresql.Driver");
-        Connection connection = DriverManager.getConnection(url, dbUserName, dbPassword);
+    public static DBResult addClient(Client client, Connection connection) throws ClassNotFoundException, SQLException {
         String query = "{call add_client(?,?,?,?,?,?,?)}";
 
         CallableStatement statement = connection.prepareCall(query);
@@ -74,9 +68,7 @@ public class ApplicationDAO {
         return new DBResult(message, success, null);
     }
 
-    public static DBResult loginClient(String email, String password) throws ClassNotFoundException, SQLException {
-        Class.forName("org.postgresql.Driver");
-        Connection connection = DriverManager.getConnection(url, dbUserName, dbPassword);
+    public static DBResult loginClient(String email, String password, Connection connection) throws ClassNotFoundException, SQLException {
         String query = "{call login_client(?,?,?,?)}";
 
         CallableStatement statement = connection.prepareCall(query);

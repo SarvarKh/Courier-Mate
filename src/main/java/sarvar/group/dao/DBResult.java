@@ -1,4 +1,4 @@
-package sarvar.group.service;
+package sarvar.group.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

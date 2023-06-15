@@ -1,4 +1,4 @@
-<%@ page import="sarvar.group.service.DBResult" %>
+<%@ page import="sarvar.group.dao.DBResult" %>
 <% if(request.getAttribute("DBResult") == null) { %>
 <span style="color: white">
 <%--    <h1 style="color: #fff">TRUE: DBResult attribute don't exist !!!!!!!!!!!!</h1>--%>

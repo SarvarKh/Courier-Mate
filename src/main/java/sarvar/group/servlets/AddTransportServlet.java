@@ -1,10 +1,9 @@
 package sarvar.group.servlets;
 
-import sarvar.group.domains.Client;
 import sarvar.group.domains.Transport;
 import sarvar.group.domains.util.TransportType;
-import sarvar.group.service.DBConnection;
-import sarvar.group.service.DBResult;
+import sarvar.group.dao.ApplicationDAO;
+import sarvar.group.dao.DBResult;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,7 +29,7 @@ public class AddTransportServlet extends HttpServlet {
         transport.setCourierId(courierId);
 
 
-        DBConnection connection = new DBConnection();
+        ApplicationDAO connection = new ApplicationDAO();
         DBResult dbResult = null;
         try {
             dbResult = connection.addTransport(transport);

@@ -15,9 +15,13 @@
     <div style="background-image: url('../../assets/img/nys1.jpeg'); background-attachment: fixed;
             background-size: cover; height: 100%">
         <%@include file="navbarcourier.jsp"%>
-
-        <h1 style="color: #fff">Success</h1>
-        <%@include file="addtransport.jsp"%>
+        <div class="container">
+            <h1 style="color: #fff">Success</h1>
+            <div class="d-flex">
+                <%@include file="addtransport.jsp"%>
+                <%@include file="showtransports.jsp"%>
+            </div>
+        </div>
         <%@include file="../common/notification.jsp"%>
         <%@include file="../common/footer.jsp"%>
     </div>

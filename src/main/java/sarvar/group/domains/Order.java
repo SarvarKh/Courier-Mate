@@ -24,7 +24,6 @@ public class Order {
     private PaymentType paymentType;
     private BigDecimal totalAmount;
     private Integer transportId;
-    private Integer priceId;
     private Status status;
 
 }
