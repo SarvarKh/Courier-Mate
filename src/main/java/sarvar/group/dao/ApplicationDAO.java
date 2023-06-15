@@ -4,10 +4,9 @@ import sarvar.group.domains.Client;
 import sarvar.group.domains.Courier;
 import sarvar.group.domains.Transport;
 
-import javax.servlet.http.HttpSession;
 import java.sql.*;
 
-public class DBConnection {
+public class ApplicationDAO {
     private static String url = "jdbc:postgresql://localhost:5432/couriermate";
     private static String dbUserName = "postgres";
     private static String dbPassword = null;
