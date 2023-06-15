@@ -3,8 +3,11 @@ package sarvar.group.dao;
 import sarvar.group.domains.Client;
 import sarvar.group.domains.Courier;
 import sarvar.group.domains.Transport;
+import sarvar.group.domains.util.TransportType;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ApplicationDAO {
     private static String url = "jdbc:postgresql://localhost:5432/couriermate";
@@ -101,5 +104,25 @@ public class ApplicationDAO {
         boolean success = statement.getBoolean(5);
 
         return new DBResult(message, success, null);
+    }
+
+
+    public List<Transport> getTransports(Integer courerId, Connection connection) throws SQLException {
+        List<Transport> transports = new ArrayList<>();
+        String query = "select * from transport where courier_id =" +courerId+ ";";
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            Integer id = resultSet.getInt("id");
+            TransportType type = TransportType.valueOf(resultSet.getString("transport_type"));
+            Integer rate = resultSet.getInt("rate");
+            Integer courierId = resultSet.getInt("courier_id");
+
+            Transport transport = new Transport(id, type, rate, courierId);
+            transports.add(transport);
+        }
+        return transports;
     }
 }

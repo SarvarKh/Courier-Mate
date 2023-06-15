@@ -17,6 +17,12 @@ import java.sql.SQLException;
 @WebServlet("/courierlogin")
 public class CourierLoginServlet extends HttpServlet {
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher reqDisp = req.getRequestDispatcher("/views/authorization/courierlogin.jsp");
+        reqDisp.forward(req, resp);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
@@ -40,7 +46,7 @@ public class CourierLoginServlet extends HttpServlet {
             session.setAttribute("email", email);
             session.setAttribute("courierId", dbResult.getDBId());
 
-            RequestDispatcher reqD = req.getRequestDispatcher("/views/courier/courier.jsp");
+            RequestDispatcher reqD = req.getRequestDispatcher("courier");
             reqD.forward(req, resp);
         } else {
             RequestDispatcher reqD = req.getRequestDispatcher("/views/authorization/courierlogin.jsp");

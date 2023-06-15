@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="sarvar.group.domains.Transport" %>
 <div class="container">
     <div class="row needs-validation bg-body-secondary rounded p-1" novalidate style="top: 10rem; position: absolute; width: 30vw">
         <div style="color: #fff">
@@ -11,21 +13,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry the Bird</td>
-                        <td>Twitter</td>
-                    </tr>
+                    <% List<Transport> transports = (List<Transport>) request.getAttribute("transports"); %>
+                    <%if (transports.size() > 0) { %>
+                        <%for (int i = 0; i < transports.size(); i++) {%>
+                            <tr>
+                                <th scope="row"><%=i+1%></th>
+                                <td><%=transports.get(i).getTransportType()%></td>
+                                <td><%=transports.get(i).getRate()%></td>
+                            </tr>
+                        <%}%>
+                    <% } else { %>
+                        <tr>
+                            <td scope="row" colspan="3">No transport was added yet.</td>
+                        </tr>
+                    <% } %>
                     </tbody>
                 </table>
             </div>
