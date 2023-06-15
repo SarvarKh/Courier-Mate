@@ -14,7 +14,7 @@
                 <div id="liveToast1" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="display: block; visibility: visible; background-color: #d1e7dd">
                     <div class="toast-header" style="background-color: #d1e7dd">
                         <strong class="me-auto">Successfully processed</strong>
-                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast1" aria-label="Close"></button>
                     </div>
                     <div class="toast-body">
                         <strong>

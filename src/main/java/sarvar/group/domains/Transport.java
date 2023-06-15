@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import sarvar.group.domains.util.TransportType;
 
 import java.math.BigDecimal;
 
@@ -13,7 +14,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class Transport {
     private Integer id;
-    private String name;
-    private BigDecimal rate;
+    private TransportType transportType;
+    private Integer rate;
     private Integer courierId;
 }

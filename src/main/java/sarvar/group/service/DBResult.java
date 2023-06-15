@@ -12,4 +12,5 @@ import lombok.Setter;
 public class DBResult {
     private String message;
     private boolean success;
+    private Integer dBId;
 }

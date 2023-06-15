@@ -17,8 +17,8 @@
         <%@include file="navbarcourier.jsp"%>
 
         <h1 style="color: #fff">Success</h1>
-        <div>This is courier profile page</div>
-
+        <%@include file="addtransport.jsp"%>
+        <%@include file="showtransports.jsp"%>
         <%@include file="../common/notification.jsp"%>
         <%@include file="../common/footer.jsp"%>
     </div>
