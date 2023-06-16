@@ -10,7 +10,9 @@
 <html>
 <head>
     <title>Order Delivery</title>
-    <script src="https://api-maps.yandex.ru/2.1/?lang=en_US" type="text/javascript"></script>
+<%--    <script src="https://api-maps.yandex.ru/2.1/?lang=en_US" type="text/javascript"></script>--%>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=11aca045-b6a0-4213-88c2-d3569d3c9eef&lang=en_RU" type="text/javascript">
+    </script>
     <script src="https://kit.fontawesome.com/ea61045147.js" crossorigin="anonymous"></script>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -92,8 +94,8 @@
     <script type="text/javascript">
         ymaps.ready(function () {
             var myMap = new ymaps.Map('map', {
-                center: [55.753994, 37.622093],
-                zoom: 9,
+                center: [41.327557, 69.292973],
+                zoom: 12,
                 controls: ['routePanelControl']
             });
 
@@ -103,9 +105,9 @@
             // SET ROUTE POINTS
             control.routePanel.state.set({
                 // Address of the starting point.
-                from: '16 Lva Tolstogo, Moscow',
+                from: 'turkestan metro station',
                 // Address of the ending point.
-                to: 'Cheryomushki metro station'
+                to: 'Mirzo Ulugbek metro station'
             });
 
             // SET ROUTING TYPE
@@ -144,8 +146,8 @@
                 // Use the route with the taxi button
                 // by default.
                 type: "taxi",
-                from: '16 Lva Tolstogo, Moscow',
-                to: 'Cheryomushki metro station'
+                from: 'turkestan metro station',
+                to: 'Mirzo Ulugbek metro station'
             });
 
 

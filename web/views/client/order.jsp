@@ -92,8 +92,8 @@
     <script type="text/javascript">
         ymaps.ready(function () {
             var myMap = new ymaps.Map('map', {
-                center: [55.753994, 37.622093],
-                zoom: 9,
+                center: [41.327557, 69.292973],
+                zoom: 12,
                 controls: ['routePanelControl']
             });
 
@@ -103,9 +103,9 @@
             // SET ROUTE POINTS
             control.routePanel.state.set({
                 // Address of the starting point.
-                from: '16 Lva Tolstogo, Moscow',
+                from: 'turkestan metro station',
                 // Address of the ending point.
-                to: 'Cheryomushki metro station'
+                to: 'Mirzo Ulugbek metro station'
             });
 
             // SET ROUTING TYPE
@@ -144,8 +144,8 @@
                 // Use the route with the taxi button
                 // by default.
                 type: "taxi",
-                from: '16 Lva Tolstogo, Moscow',
-                to: 'Cheryomushki metro station'
+                from: 'turkestan metro station',
+                to: 'Mirzo Ulugbek metro station'
             });
 
 
