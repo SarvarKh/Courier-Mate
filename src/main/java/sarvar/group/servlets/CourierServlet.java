@@ -34,7 +34,7 @@ public class CourierServlet extends HttpServlet {
         }
         req.setAttribute("transports", transports);
 
-        RequestDispatcher reqD = req.getRequestDispatcher("/views/courier/courier.jsp");
+        RequestDispatcher reqD = req.getRequestDispatcher("/views/courier/order.jsp");
         reqD.forward(req, resp);
     }
 }
