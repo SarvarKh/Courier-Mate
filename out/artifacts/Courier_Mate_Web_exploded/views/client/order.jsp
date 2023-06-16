@@ -21,7 +21,7 @@
         <div class="container">
             <h2 class="mt-4">Order Delivery</h2>
             <div class="d-flex justify-content-between">
-                <form action="" method="" style="margin-top: 2rem">
+                <form action="order" method="post" style="margin-top: 2rem">
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Transport</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">

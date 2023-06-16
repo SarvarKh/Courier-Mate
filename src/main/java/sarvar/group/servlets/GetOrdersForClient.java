@@ -1,7 +1,6 @@
 package sarvar.group.servlets;
 
 import sarvar.group.dao.ApplicationDAO;
-import sarvar.group.dao.DBResult;
 import sarvar.group.domains.Transport;
 
 import javax.servlet.RequestDispatcher;
@@ -10,31 +9,30 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/courier")
-public class CourierServlet extends HttpServlet {
+@WebServlet("/order")
+public class GetOrdersForClient extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Integer courerId = (Integer) req.getSession().getAttribute("courierId");
+        Integer clientId = (Integer) req.getSession().getAttribute("clientId");
 
         Connection connection = (Connection) getServletContext().getAttribute("dbconnection");
 
         ApplicationDAO dao = new ApplicationDAO();
-        List<Transport> transports = null;
+//        List<Transport> transports = null;
+//
+//        try {
+//            transports = dao.getTransports(courerId, connection);
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        req.setAttribute("transports", transports);
 
-        try {
-            transports = dao.getTransports(courerId, connection);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        req.setAttribute("transports", transports);
-
-        RequestDispatcher reqD = req.getRequestDispatcher("/views/courier/courier.jsp");
+        RequestDispatcher reqD = req.getRequestDispatcher("/views/client/order.jsp");
         reqD.forward(req, resp);
     }
 }
