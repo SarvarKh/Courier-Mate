@@ -14,7 +14,7 @@
                     </thead>
                     <tbody>
                     <% List<Transport> transports = (List<Transport>) request.getAttribute("transports"); %>
-                    <%if (transports.size() > 0) { %>
+                    <%if (transports != null && transports.size() > 0) { %>
                         <%for (int i = 0; i < transports.size(); i++) {%>
                             <tr>
                                 <th scope="row"><%=i+1%></th>

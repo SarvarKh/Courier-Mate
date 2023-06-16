@@ -52,7 +52,7 @@ public class ClientSignupServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("email", email);
 
-            RequestDispatcher reqd = req.getRequestDispatcher("/views/client/client.jsp");//("/home.jsp"); //("/views/courier.jsp");
+            RequestDispatcher reqd = req.getRequestDispatcher("/views/authorization/clientlogin.jsp");
             reqd.forward(req, resp);
         } else {
             RequestDispatcher reqD = req.getRequestDispatcher("/views/authorization/clientsignup.jsp");
