@@ -19,6 +19,12 @@ import java.sql.SQLException;
 @WebServlet("/couriersignup")
 public class CourierSignupServlet extends HttpServlet {
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher reqDisp = req.getRequestDispatcher("/views/authorization/couriersignup.jsp");
+        reqDisp.forward(req, resp);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Collect data from the form
         Courier courier = new Courier();
