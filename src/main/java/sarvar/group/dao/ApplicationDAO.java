@@ -3,6 +3,7 @@ package sarvar.group.dao;
 import sarvar.group.domains.Client;
 import sarvar.group.domains.Courier;
 import sarvar.group.domains.Transport;
+import sarvar.group.domains.util.Active;
 import sarvar.group.domains.util.TransportType;
 
 import java.sql.*;
@@ -124,5 +125,47 @@ public class ApplicationDAO {
             transports.add(transport);
         }
         return transports;
+    }
+
+    public List<Transport> getTransportsForClient(Integer courierId, Connection connection) throws SQLException {
+        List<Transport> transports = new ArrayList<>();
+        String query = "select * from transport where courier_id =" +courierId+ ";";
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            Integer id = resultSet.getInt("id");
+            TransportType type = TransportType.valueOf(resultSet.getString("transport_type"));
+            Integer rate = resultSet.getInt("rate");
+            Integer courierIdFromDb = resultSet.getInt("courier_id");
+
+            Transport transport = new Transport(id, type, rate, courierIdFromDb);
+            transports.add(transport);
+        }
+        return transports;
+    }
+
+    public List<Courier> getAllCourier(Connection connection) throws SQLException {
+        List<Courier> couriers = new ArrayList<>();
+        String query = "select * from courier where active = 'ACCEPTING_ORDERS';";
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            Integer id = resultSet.getInt("id");
+            String firstName = resultSet.getString("first_name");
+            String lastName = resultSet.getString("last_name");
+            String email = resultSet.getString("email");
+            String phoneNumber = resultSet.getString("phone_number");
+            Active active = Active.valueOf(resultSet.getString("active"));
+            String password = resultSet.getString("password");
+
+
+            Courier courier = new Courier(id, firstName, lastName, email, phoneNumber, active, password);
+            couriers.add(courier);
+        }
+        return couriers;
     }
 }
