@@ -45,7 +45,7 @@ public class ClientLoginServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("email", email);
 
-            RequestDispatcher reqD = req.getRequestDispatcher("order");
+            RequestDispatcher reqD = req.getRequestDispatcher("order-for-client");
             reqD.forward(req, resp);
         } else {
             RequestDispatcher reqD = req.getRequestDispatcher("/views/authorization/clientlogin.jsp");
