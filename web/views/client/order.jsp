@@ -12,7 +12,6 @@
     <title>Order Delivery</title>
     <script src="https://api-maps.yandex.ru/2.1/?lang=en_US" type="text/javascript"></script>
     <script src="https://kit.fontawesome.com/ea61045147.js" crossorigin="anonymous"></script>
-<%--    <script src="https://unpkg.com/htmx.org@1.9.2" integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h" crossorigin="anonymous"></script>--%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -26,8 +25,8 @@
             <div class="d-flex justify-content-between">
                 <form action="addorder" method="post" style="margin-top: 2rem">
 
-                    <input name="travelDistance" value="" type="text" class="form-control" id="travelDistance" aria-describedby="travelDistanceHelp" disabled>
-                    <input name="travelTime" value="" type="text" class="form-control" id="travelTime" aria-describedby="travelTimeHelp" disabled>
+                    <input name="travelDistance" type="text" class="form-control" id="travelDistance" aria-describedby="travelDistanceHelp" disabled>
+                    <input name="travelTime" type="text" class="form-control" id="travelTime" aria-describedby="travelTimeHelp" disabled>
 
                     <div class="md-3">
                         <label for="paymentType" class="form-label">Payment Type</label>
@@ -39,7 +38,7 @@
                     </div>
                     <div class="md-3">
                         <label for="courier" class="form-label">Available Couriers (ACCEPTING_ORDERS)</label>
-                        <select class="form-select" id="courier" name="courier">
+                        <select class="form-select" id="courier" name="courier" required>
                             <option selected disabled value="">Choose...</option>
                             <% List<Courier> couriers = (List<Courier>) request.getAttribute("couriers"); %>
                             <%if (couriers != null && couriers.size() > 0) { %>
@@ -58,7 +57,7 @@
                     <input type="hidden" name="clientId" value="<%= session.getAttribute("clientId") %>">
                     <div class="md-3">
                         <label for="transport" class="form-label">Courier's Transports</label>
-                        <select class="form-select" id="transport" name="transport" required>
+                        <select class="form-select" id="transport" name="transport" required onchange="calculateCost()">
                             <option selected disabled value="">Choose...</option>
                         </select>
                     </div>
@@ -70,8 +69,8 @@
 
 
                     <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Agree with terms & conditions.</label>
+                        <input name="agreement" type="checkbox" class="form-check-input" id="agreement">
+                        <label class="form-check-label" for="agreement">Agree with terms & conditions.</label>
                     </div>
                     <div class="alert alert-danger" role="alert" id="error_message" style="display: none">
                         A simple danger alert—check it out!
@@ -88,6 +87,32 @@
         <%@include file="../common/footer.jsp"%>
     </div>
 
+<%--    Form validation--%>
+    <script type="text/javascript">
+        function checkForm() {
+            let travelDistance = document.getElementById("travelDistance").value;
+            let agreement = document.getElementById("agreement");
+
+
+            let errorMessage = ["ERRORs: "];
+
+            if (travelDistance.length == 0) {
+                errorMessage.push("Start & end destinations must be selected");
+            };
+            if (!agreement.checked) {
+                errorMessage.push("You must agree before ordering delivery - click on agreement checkbox");
+            }
+
+            if (errorMessage.length <= 1) {
+                document.getElementById("button").setAttribute("type", "submit");
+            } else {
+                document.getElementById("error_message").setAttribute("style", "display: block");
+                document.getElementById("error_message").innerHTML = errorMessage.toString();
+            }
+        }
+    </script>
+
+<%--    AJAX request to get transports based on selected courier AND calculate cost of trip--%>
     <script>
         $(document).ready(function() {
             $('#courier').on('change', function() {
@@ -106,15 +131,28 @@
                         for (var i = 0; i < response.length; i++) {
                             var transport = response[i];
                             $('#transport').append($('<option>', {
-                                value: transport.id,
-                                text: transport.transportType
+                                value: transport.rate,
+                                text: (transport.transportType + ", " + transport.rate + " USD/km")
                             }));
                         }
                     }
                 });
             });
         });
+
+        function calculateCost() {
+            const rate = parseInt(document.getElementById("transport").value);
+            const travelDistance = parseFloat(document.getElementById("travelDistance").value);
+            console.log(typeof rate)
+            console.log(typeof travelDistance)
+            let cost = rate * travelDistance;
+
+            document.getElementById("totalAmount").setAttribute("value", cost);
+            document.getElementById("totalAmount").innerHTML = cost;
+        }
     </script>
+
+<%--    Yandex Map API--%>
     <script type="text/javascript">
         ymaps.ready(function () {
             var myMap = new ymaps.Map('map', {
@@ -213,27 +251,6 @@
                 console.log(err);
             });
         });
-    </script>
-    <script type="text/javascript">
-        function checkForm() {
-            let rate = document.getElementById("rate").value;
-            let transportType = document.getElementById("transportType").value;
-            let errorMessage = [""];
-
-            if (rate < 1 || rate >= 100) {
-                errorMessage.push("Rate must be in range between 1 and 100 (unit is USD/km)");
-            };
-            if (transportType == "") {
-                errorMessage.push("Transport Type must be selected");
-            }
-
-            if (errorMessage.length <= 1) {
-                document.getElementById("button").setAttribute("type", "submit");
-            } else {
-                document.getElementById("error_message").setAttribute("style", "display: block");
-                document.getElementById("error_message").innerHTML = errorMessage.toString();
-            }
-        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>

@@ -36,6 +36,7 @@ public class getTransportsServlet extends HttpServlet {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("id", transport.getId());
             jsonObject.put("transportType", transport.getTransportType());
+            jsonObject.put("rate", transport.getRate());
             jsonArray.put(jsonObject);
         }
         String json = jsonArray.toString(); // convert transports to JSON array
