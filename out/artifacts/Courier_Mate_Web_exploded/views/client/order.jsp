@@ -10,10 +10,10 @@
 <html>
 <head>
     <title>Order Delivery</title>
-<%--    <script src="https://api-maps.yandex.ru/2.1/?lang=en_US" type="text/javascript"></script>--%>
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=11aca045-b6a0-4213-88c2-d3569d3c9eef&lang=en_RU" type="text/javascript">
-    </script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=en_US" type="text/javascript"></script>
     <script src="https://kit.fontawesome.com/ea61045147.js" crossorigin="anonymous"></script>
+<%--    <script src="https://unpkg.com/htmx.org@1.9.2" integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h" crossorigin="anonymous"></script>--%>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
@@ -39,30 +39,27 @@
                     </div>
                     <div class="md-3">
                         <label for="courier" class="form-label">Available Couriers (ACCEPTING_ORDERS)</label>
-                        <select class="form-select" id="courier" name="courier" required>
+                        <select class="form-select" id="courier" name="courier">
                             <option selected disabled value="">Choose...</option>
                             <% List<Courier> couriers = (List<Courier>) request.getAttribute("couriers"); %>
                             <%if (couriers != null && couriers.size() > 0) { %>
                             <%for (int i = 0; i < couriers.size(); i++) {%>
-                            <option value="<%= couriers.get(i).getId()%>%>">
+                            <option value="<%= couriers.get(i).getId()%>">
                                 <%=couriers.get(i).getFirstName() + " " + couriers.get(i).getLastName() + ", " +
                                         couriers.get(i).getPhoneNumber()%>
 <%--                                Reputation: (High, Medium, Low)--%>
                             </option>
                             <%}%>
                             <% } else { %>
-                            <option selected disabled value="">No courier is avilable now, try later</option>
+                            <option selected disabled value="">No courier is available now, try later</option>
                             <% } %>
                         </select>
                     </div>
                     <input type="hidden" name="clientId" value="<%= session.getAttribute("clientId") %>">
                     <div class="md-3">
-                        <label for="transport" class="form-label">Courier's Transport</label>
+                        <label for="transport" class="form-label">Courier's Transports</label>
                         <select class="form-select" id="transport" name="transport" required>
                             <option selected disabled value="">Choose...</option>
-                            <option value="transport_id">BICYCLE, Rate: 2 $/km</option>
-                            <option value="transport_id">CAR, Rate: 8 $/km</option>
-                            <option value="transport_id">DRONE, Rate: 11 $/km</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -91,6 +88,33 @@
         <%@include file="../common/footer.jsp"%>
     </div>
 
+    <script>
+        $(document).ready(function() {
+            $('#courier').on('change', function() {
+                var selectedCourier = $(this).val();
+                console.log("selectedCourier: [" + selectedCourier + "]");
+                $.ajax({
+                    url: 'get-transports',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { courierId: selectedCourier },
+                    success: function(response) {
+                        console.log("response.class: "+ typeof (response))
+                        console.dir(response);
+                        // var transports = JSON.parse(response);
+                        $('#transport').empty();
+                        for (var i = 0; i < response.length; i++) {
+                            var transport = response[i];
+                            $('#transport').append($('<option>', {
+                                value: transport.id,
+                                text: transport.transportType
+                            }));
+                        }
+                    }
+                });
+            });
+        });
+    </script>
     <script type="text/javascript">
         ymaps.ready(function () {
             var myMap = new ymaps.Map('map', {

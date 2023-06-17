@@ -2,7 +2,6 @@
   <artifact type="exploded-war" name="Courier-Mate:Web exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/Courier_Mate_Web_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="Courier-Mate/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="Courier-Mate" />
@@ -15,8 +14,11 @@
           <element id="library" level="project" name="Maven: org.checkerframework:checker-qual:3.5.0" />
           <element id="library" level="project" name="Maven: org.postgresql:postgresql:42.5.1" />
           <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.24" />
+          <element id="library" level="project" name="Maven: org.json:json:20230227" />
+          <element id="library" level="project" name="Maven: org.webjars:jquery:3.6.0" />
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="Courier-Mate/web/Web" />
     </root>
   </artifact>
 </component>
