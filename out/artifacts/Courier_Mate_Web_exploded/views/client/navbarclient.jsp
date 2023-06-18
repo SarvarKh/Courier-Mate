@@ -22,7 +22,10 @@
                     <%--          </ul>--%>
 
                     <a class="btn " href="#">Profile</a>
-                        <a class="btn" href="#">Orders</a>
+                        <form action="/all-couriers" method="post">
+                            <button class="btn" type="submit">Place an order</button>
+                        </form>
+                        <a class="btn" href="/my-orders">My orders</a>
                     <div class="accordion accordion-flush" id="accordionFlushExample">
                         <div class="accordion-item">
                             <h2 class="accordion-header">

@@ -25,7 +25,7 @@
             <h2 class="mt-4">Order Delivery</h2>
             <div class="d-flex justify-content-between">
                 <form action="add-order" method="post" style="margin-top: 2rem">
-
+<%--                    // To be HIDDEN: just for development (type="hidden")--%>
                     <input name="travelDistance" type="text" class="form-control" id="travelDistance" aria-describedby="travelDistanceHelp">
                     <input  name="travelTime" type="text" class="form-control" id="travelTime" aria-describedby="travelTimeHelp">
 
@@ -244,11 +244,11 @@
                         console.log("Distance: " + oDistance);
                         console.log("Travel time: " + oTravelTime);
 
-                        // with Yandex map API key inclusion
+                        // To be included: for production - Yandex map API key inclusion
                         // document.getElementById("travelDistance").value = oDistance.slice(0, -3);
                         // document.getElementById("travelTime").value = oTravelTime.slice(0, -4);
 
-                        // just for development to  be deleted after testing
+                        // To be deleted after testing: just for development
                         document.getElementById("travelDistance").value = oDistance;
                         document.getElementById("travelTime").value = oTravelTime;
                     }

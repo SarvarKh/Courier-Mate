@@ -25,8 +25,7 @@
             <h2 class="mt-4">Order Delivery</h2>
             <div class="d-flex justify-content-between">
                 <form action="add-order" method="post" style="margin-top: 2rem">
-
-                    // To be HIDED: just for development (type="hidden")
+<%--                    // To be HIDDEN: just for development (type="hidden")--%>
                     <input name="travelDistance" type="text" class="form-control" id="travelDistance" aria-describedby="travelDistanceHelp">
                     <input  name="travelTime" type="text" class="form-control" id="travelTime" aria-describedby="travelTimeHelp">
 

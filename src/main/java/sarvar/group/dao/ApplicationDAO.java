@@ -1,11 +1,9 @@
 package sarvar.group.dao;
 
-import sarvar.group.domains.Client;
-import sarvar.group.domains.Courier;
-import sarvar.group.domains.Order;
-import sarvar.group.domains.Transport;
+import sarvar.group.domains.*;
 import sarvar.group.domains.util.Active;
 import sarvar.group.domains.util.PaymentType;
+import sarvar.group.domains.util.Status;
 import sarvar.group.domains.util.TransportType;
 
 import java.sql.*;
@@ -193,5 +191,83 @@ public class ApplicationDAO {
         boolean success = statement.getBoolean(10);
 
         return new DBResult(message, success, null);
+    }
+
+    public List<Order> getOrders(Integer clientId, Connection connection) throws SQLException {
+        List<Order> orders = new ArrayList<>();
+        String query = "select * from \"order\" where client_id =" +clientId+ ";";
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            Integer id = resultSet.getInt("id");
+            Double travelDistance = resultSet.getDouble("travel_distance");
+            Double travelTime = resultSet.getDouble("travel_time");
+            PaymentType paymentType = PaymentType.valueOf(resultSet.getString("payment_type"));
+            Integer courierId = resultSet.getInt("courier_id");
+            Integer clientIdDB = resultSet.getInt("client_id");
+            Integer rate = resultSet.getInt("rate");
+            Double totalAmount = resultSet.getDouble("total_amount");
+            Status status = Status.valueOf(resultSet.getString("status"));
+
+            Order order = new Order(id, travelDistance, travelTime, paymentType, courierId, clientIdDB, rate, totalAmount, status);
+            orders.add(order);
+        }
+        return orders;
+    }
+
+    public List<Object> getOrderAssesmentClientCourier(Integer orderId, Connection connection) throws SQLException {
+        List<Object> objects = new ArrayList<>();
+        Order order = null;
+
+        String query = "SELECT o.*, a.*, c.first_name AS clientFirstName, c.email AS clientEmail, r.first_name AS courierFirstName, r.email AS courierEmail " +
+                "FROM \"order\" o " +
+                "LEFT JOIN assessment a ON o.id = a.order_id " +
+                "LEFT JOIN client c ON a.client_id = c.id " +
+                "LEFT JOIN courier r ON a.courier_id = r.id " +
+                "WHERE o.id = " +orderId+ ";";
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            // Retrieve the order data
+            Integer id = resultSet.getInt("id");
+            Double travelDistance = resultSet.getDouble("travel_distance");
+            Double travelTime = resultSet.getDouble("travel_time");
+            PaymentType paymentType = PaymentType.valueOf(resultSet.getString("payment_type"));
+            Integer courierId = resultSet.getInt("courier_id");
+            Integer clientIdDB = resultSet.getInt("client_id");
+            Integer rate = resultSet.getInt("rate");
+            Double totalAmount = resultSet.getDouble("total_amount");
+            Status status = Status.valueOf(resultSet.getString("status"));
+            order = new Order(id, travelDistance, travelTime, paymentType, courierId, clientIdDB, rate, totalAmount, status);
+
+            // Retrieve the assessment data
+            Assessment assessment = new Assessment();
+            assessment.setTimeliness(resultSet.getInt("timeliness"));
+            assessment.setCondition(resultSet.getInt("condition"));
+            assessment.setCommunication(resultSet.getInt("communication"));
+            assessment.setClientId(resultSet.getInt("client_id"));
+            assessment.setCourierId(resultSet.getInt("courier_id"));
+
+            // Retrieve the client data
+            String clientFirstName = resultSet.getString("clientFirstName");
+            String clientEmail = resultSet.getString("clientEmail");
+
+            // Retrieve the courier data
+            String courierFirstName = resultSet.getString("courierFirstName");
+            String courierEmail = resultSet.getString("courierEmail");
+
+            // Set the Order, Assessment, Client, and Courier objects as request attributes
+            objects.add(order);
+            objects.add(assessment);
+            objects.add(clientFirstName);
+            objects.add(clientEmail);
+            objects.add(courierFirstName);
+            objects.add(courierEmail);
+        }
+        return objects;
     }
 }
