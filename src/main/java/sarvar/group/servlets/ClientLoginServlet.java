@@ -44,6 +44,7 @@ public class ClientLoginServlet extends HttpServlet {
         if (dbResult.isSuccess()) {
             HttpSession session = req.getSession();
             session.setAttribute("email", email);
+            session.setAttribute("clientId", dbResult.getDBId());
 
             RequestDispatcher reqD = req.getRequestDispatcher("all-couriers");
             reqD.forward(req, resp);

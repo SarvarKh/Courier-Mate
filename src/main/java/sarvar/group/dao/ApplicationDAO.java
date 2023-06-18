@@ -2,8 +2,10 @@ package sarvar.group.dao;
 
 import sarvar.group.domains.Client;
 import sarvar.group.domains.Courier;
+import sarvar.group.domains.Order;
 import sarvar.group.domains.Transport;
 import sarvar.group.domains.util.Active;
+import sarvar.group.domains.util.PaymentType;
 import sarvar.group.domains.util.TransportType;
 
 import java.sql.*;
@@ -73,19 +75,21 @@ public class ApplicationDAO {
     }
 
     public static DBResult loginClient(String email, String password, Connection connection) throws ClassNotFoundException, SQLException {
-        String query = "{call login_client(?,?,?,?)}";
+        String query = "{call login_client(?,?,?,?,?)}";
 
         CallableStatement statement = connection.prepareCall(query);
         statement.setString(1, email);
         statement.setString(2, password);
         statement.registerOutParameter(3, Types.VARCHAR);
         statement.registerOutParameter(4, Types.BOOLEAN);
+        statement.registerOutParameter(5, Types.INTEGER);
         statement.executeUpdate();
 
         String message = statement.getString(3);
         boolean success = statement.getBoolean(4);
+        Integer clientId = statement.getInt(5);
 
-        return new DBResult(message, success, null);
+        return new DBResult(message, success, clientId);
     }
 
     public DBResult addTransport(Transport transport) throws ClassNotFoundException, SQLException {
@@ -167,5 +171,27 @@ public class ApplicationDAO {
             couriers.add(courier);
         }
         return couriers;
+    }
+
+    public DBResult addOrder(Order order, Connection connection) throws ClassNotFoundException, SQLException {
+        String query = "{call add_order(?,?,?,?,?,?,?,?,?,?)}";
+
+        CallableStatement statement = connection.prepareCall(query);
+        statement.setInt(1, order.getTravelDistance());
+        statement.setInt(2, order.getTravelTime());
+        statement.setString(3, order.getPaymentType().toString());
+        statement.setInt(4, order.getCourierId());
+        statement.setInt(5, order.getClientId());
+        statement.setInt(6, order.getRate());
+        statement.setInt(7, order.getTotalAmount());
+        statement.setString(8, order.getStatus().toString());
+        statement.registerOutParameter(9, Types.VARCHAR);
+        statement.registerOutParameter(10, Types.BOOLEAN);
+        statement.executeUpdate();
+
+        String message = statement.getString(9);
+        boolean success = statement.getBoolean(10);
+
+        return new DBResult(message, success, null);
     }
 }

@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/get-transports")
-public class getTransportsServlet extends HttpServlet {
+public class GetTransportsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer selectedCourierId = Integer.valueOf(request.getParameter("courierId"));

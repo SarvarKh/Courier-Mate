@@ -25,8 +25,8 @@
             <div class="d-flex justify-content-between">
                 <form action="addorder" method="post" style="margin-top: 2rem">
 
-                    <input name="travelDistance" type="text" class="form-control" id="travelDistance" aria-describedby="travelDistanceHelp" disabled>
-                    <input name="travelTime" type="text" class="form-control" id="travelTime" aria-describedby="travelTimeHelp" disabled>
+                    <input name="travelDistance" type="text" class="form-control" id="travelDistance" aria-describedby="travelDistanceHelp">
+                    <input name="travelTime" type="text" class="form-control" id="travelTime" aria-describedby="travelTimeHelp">
 
                     <div class="md-3">
                         <label for="paymentType" class="form-label">Payment Type</label>
@@ -62,10 +62,12 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="totalAmount" class="form-label">Total amount</label>
-                        <input name="totalAmount" type="text" class="form-control" id="totalAmount" aria-describedby="totalAmountHelp" disabled>
+                        <label for="totalAmountDisplay" class="form-label">Total amount</label>
+                        <input name="totalAmountDisplay" type="text" class="form-control" id="totalAmountDisplay" aria-describedby="totalAmountHelp" disabled>
                         <div id="totalAmountHelp" class="form-text">Disabled: auto-calculated based on selections.</div>
                     </div>
+                    <input type="hidden" name="totalAmount" type="text" class="form-control" id="totalAmount" aria-describedby="totalAmountHelp">
+                    <input type="hidden" name="status" value="PLACED">
 
 
                     <div class="mb-3 form-check">
@@ -92,6 +94,8 @@
         function checkForm() {
             let travelDistance = document.getElementById("travelDistance").value;
             let agreement = document.getElementById("agreement");
+            let totalAmount = document.getElementById("totalAmount").value;
+            console.log("totalAmount: " + totalAmount);
 
 
             let errorMessage = ["ERRORs: "];
@@ -101,6 +105,9 @@
             };
             if (!agreement.checked) {
                 errorMessage.push("You must agree before ordering delivery - click on agreement checkbox");
+            }
+            if (totalAmount.length == 0) {
+                errorMessage.push("Total amount can't be empty - please ensure all fields are selected");
             }
 
             if (errorMessage.length <= 1) {
@@ -117,15 +124,12 @@
         $(document).ready(function() {
             $('#courier').on('change', function() {
                 var selectedCourier = $(this).val();
-                console.log("selectedCourier: [" + selectedCourier + "]");
                 $.ajax({
                     url: 'get-transports',
                     type: 'GET',
                     dataType: 'json',
                     data: { courierId: selectedCourier },
                     success: function(response) {
-                        console.log("response.class: "+ typeof (response))
-                        console.dir(response);
                         // var transports = JSON.parse(response);
                         $('#transport').empty();
                         for (var i = 0; i < response.length; i++) {
@@ -143,12 +147,10 @@
         function calculateCost() {
             const rate = parseInt(document.getElementById("transport").value);
             const travelDistance = parseFloat(document.getElementById("travelDistance").value);
-            console.log(typeof rate)
-            console.log(typeof travelDistance)
             let cost = rate * travelDistance;
 
-            document.getElementById("totalAmount").setAttribute("value", cost);
-            document.getElementById("totalAmount").innerHTML = cost;
+            document.getElementById("totalAmountDisplay").value = cost;
+            document.getElementById("totalAmount").value = cost;
         }
     </script>
 

@@ -16,12 +16,11 @@ import java.math.BigDecimal;
 public class Order {
     private Integer id;
     private Integer travelDistance; // in meters
-    private String travelTime; // in minutes
-    private Integer orderNumber;
+    private Integer travelTime; // in minutes
     private PaymentType paymentType;
     private Integer courierId;
     private Integer clientId;
-    private Integer transportId;
+    private Integer rate; // of selected transport in USD per km.
     private Integer totalAmount;
     private Status status;
 
