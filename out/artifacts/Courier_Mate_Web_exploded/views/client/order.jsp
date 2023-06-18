@@ -11,6 +11,7 @@
 <head>
     <title>Order Delivery</title>
     <script src="https://api-maps.yandex.ru/2.1/?lang=en_US" type="text/javascript"></script>
+
     <script src="https://kit.fontawesome.com/ea61045147.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
@@ -26,7 +27,7 @@
                 <form action="add-order" method="post" style="margin-top: 2rem">
 
                     <input name="travelDistance" type="text" class="form-control" id="travelDistance" aria-describedby="travelDistanceHelp">
-                    <input name="travelTime" type="text" class="form-control" id="travelTime" aria-describedby="travelTimeHelp">
+                    <input  name="travelTime" type="text" class="form-control" id="travelTime" aria-describedby="travelTimeHelp">
 
                     <div class="md-3">
                         <label for="paymentType" class="form-label">Payment Type</label>
@@ -243,10 +244,13 @@
                         console.log("Distance: " + oDistance);
                         console.log("Travel time: " + oTravelTime);
 
-                        document.getElementById("travelDistance").setAttribute("value", oDistance);
-                        document.getElementById("travelDistance").innerHTML = oDistance.toString();
-                        document.getElementById("travelTime").setAttribute("value", oTravelTime);
-                        document.getElementById("travelTime").innerHTML = oTravelTime.toString();
+                        // with Yandex map API key inclusion
+                        // document.getElementById("travelDistance").value = oDistance.slice(0, -3);
+                        // document.getElementById("travelTime").value = oTravelTime.slice(0, -4);
+
+                        // just for development to  be deleted after testing
+                        document.getElementById("travelDistance").value = oDistance;
+                        document.getElementById("travelTime").value = oTravelTime;
                     }
                 });
             }, function (err) {
