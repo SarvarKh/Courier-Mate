@@ -15,13 +15,13 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class Order {
     private Integer id;
-    private Integer travelDistance; // in meters
-    private Integer travelTime; // in minutes
+    private Double travelDistance; // in km
+    private Double travelTime; // in minutes
     private PaymentType paymentType;
     private Integer courierId;
     private Integer clientId;
     private Integer rate; // of selected transport in USD per km.
-    private Integer totalAmount;
+    private Double totalAmount;
     private Status status;
 
 }

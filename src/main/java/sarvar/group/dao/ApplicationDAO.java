@@ -177,13 +177,13 @@ public class ApplicationDAO {
         String query = "{call add_order(?,?,?,?,?,?,?,?,?,?)}";
 
         CallableStatement statement = connection.prepareCall(query);
-        statement.setInt(1, order.getTravelDistance());
-        statement.setInt(2, order.getTravelTime());
+        statement.setDouble(1, order.getTravelDistance());
+        statement.setDouble(2, order.getTravelTime());
         statement.setString(3, order.getPaymentType().toString());
         statement.setInt(4, order.getCourierId());
         statement.setInt(5, order.getClientId());
         statement.setInt(6, order.getRate());
-        statement.setInt(7, order.getTotalAmount());
+        statement.setDouble(7, order.getTotalAmount());
         statement.setString(8, order.getStatus().toString());
         statement.registerOutParameter(9, Types.VARCHAR);
         statement.registerOutParameter(10, Types.BOOLEAN);

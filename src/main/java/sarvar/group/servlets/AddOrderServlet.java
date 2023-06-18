@@ -17,18 +17,18 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet("/addorder")
+@WebServlet("/add-order")
 public class AddOrderServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Order order = new Order();
-        order.setTravelDistance(Integer.valueOf(req.getParameter("travelDistance")));
-        order.setTravelTime(Integer.valueOf(req.getParameter("travelTime")));
+        order.setTravelDistance(Double.valueOf(req.getParameter("travelDistance")));
+        order.setTravelTime(Double.valueOf(req.getParameter("travelTime")));
         order.setPaymentType(PaymentType.valueOf(req.getParameter("paymentType")));
         order.setCourierId(Integer.valueOf(req.getParameter("courier")));
         order.setClientId(Integer.valueOf(req.getParameter("clientId")));
         order.setRate(Integer.valueOf(req.getParameter("transport")));
-        order.setTotalAmount(Integer.valueOf(req.getParameter("totalAmount")));
+        order.setTotalAmount(Double.valueOf(req.getParameter("totalAmount")));
         order.setStatus(Status.valueOf(req.getParameter("status")));
 
         Connection connection = (Connection) getServletContext().getAttribute("dbconnection");

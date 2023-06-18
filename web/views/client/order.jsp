@@ -23,7 +23,7 @@
         <div class="container">
             <h2 class="mt-4">Order Delivery</h2>
             <div class="d-flex justify-content-between">
-                <form action="addorder" method="post" style="margin-top: 2rem">
+                <form action="add-order" method="post" style="margin-top: 2rem">
 
                     <input name="travelDistance" type="text" class="form-control" id="travelDistance" aria-describedby="travelDistanceHelp">
                     <input name="travelTime" type="text" class="form-control" id="travelTime" aria-describedby="travelTimeHelp">
@@ -149,8 +149,8 @@
             const travelDistance = parseFloat(document.getElementById("travelDistance").value);
             let cost = rate * travelDistance;
 
-            document.getElementById("totalAmountDisplay").value = cost;
-            document.getElementById("totalAmount").value = cost;
+            document.getElementById("totalAmountDisplay").value = cost.toFixed(2);
+            document.getElementById("totalAmount").value = cost.toFixed(2);
         }
     </script>
 
