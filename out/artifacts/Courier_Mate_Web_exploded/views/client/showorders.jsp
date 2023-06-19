@@ -51,6 +51,7 @@
                                 <td><%=orders.get(i).getStatus()%></td>
                                 <td>
                                     <form action="order-detail" method="post">
+                                        <input type="hidden" name="courierId" value="<%=orders.get(i).getCourierId()%>">
                                         <input type="hidden" name="orderId" value="<%=orders.get(i).getId()%>">
                                         <button type="submit" class="btn btn-primary">View Details</button>
                                     </form>

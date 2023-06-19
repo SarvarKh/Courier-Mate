@@ -217,7 +217,7 @@ public class ApplicationDAO {
         return orders;
     }
 
-    public List<Object> getOrderAssesmentClientCourier(Integer orderId, Connection connection) throws SQLException {
+    public List<Object> getOrderAssessmentClientCourier(Integer orderId, Connection connection) throws SQLException {
         List<Object> objects = new ArrayList<>();
         Order order = null;
 
@@ -269,5 +269,26 @@ public class ApplicationDAO {
             objects.add(courierEmail);
         }
         return objects;
+    }
+
+    public DBResult addAssessment(Assessment assessment, Connection connection) throws SQLException {
+        String query = "{call add_assessment(?,?,?,?,?,?,?,?)}";
+
+        CallableStatement statement = connection.prepareCall(query);
+        statement.setInt(1, assessment.getTimeliness());
+        statement.setInt(2, assessment.getCondition());
+        statement.setInt(3, assessment.getCommunication());
+        statement.setInt(4, assessment.getClientId());
+        statement.setInt(5, assessment.getCourierId());
+        statement.setInt(6, assessment.getOrderId());
+
+        statement.registerOutParameter(7, Types.VARCHAR);
+        statement.registerOutParameter(8, Types.BOOLEAN);
+        statement.executeUpdate();
+
+        String message = statement.getString(7);
+        boolean success = statement.getBoolean(8);
+
+        return new DBResult(message, success, null);
     }
 }

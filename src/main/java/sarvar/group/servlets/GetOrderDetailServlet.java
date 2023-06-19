@@ -20,17 +20,24 @@ public class GetOrderDetailServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer orderId = Integer.valueOf(req.getParameter("orderId"));
+        Integer courierId = Integer.valueOf(req.getParameter("courierId"));
         Connection connection = (Connection) getServletContext().getAttribute("dbconnection");
 
         ApplicationDAO dao = new ApplicationDAO();
-        List<Object> orderAssesmentClientCourier = null;
+        List<Object> orderAssessmentClientCourier = null;
 
         try {
-            orderAssesmentClientCourier = dao.getOrderAssesmentClientCourier(orderId, connection);
+            orderAssessmentClientCourier = dao.getOrderAssessmentClientCourier(orderId, connection);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        req.setAttribute("orderAssesmentClientCourier", orderAssesmentClientCourier);
+        req.setAttribute("order", orderAssessmentClientCourier.get(0));
+        req.setAttribute("assessment", orderAssessmentClientCourier.get(1));
+        req.setAttribute("courierId", courierId);
+        req.setAttribute("clientFirstName", orderAssessmentClientCourier.get(2));
+        req.setAttribute("clientEmail", orderAssessmentClientCourier.get(3));
+        req.setAttribute("courierFirstName", orderAssessmentClientCourier.get(4));
+        req.setAttribute("courierEmail", orderAssessmentClientCourier.get(5));
 
         RequestDispatcher reqD = req.getRequestDispatcher("/views/client/orderdetails.jsp");
         reqD.forward(req, resp);

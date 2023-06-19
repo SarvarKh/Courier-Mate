@@ -22,7 +22,7 @@
                     <%--          </ul>--%>
 
                     <a class="btn " href="#">Profile</a>
-                        <form action="/all-couriers" method="post">
+                        <form action="/all-couriers" method="post" style="margin-block-end: 0px">
                             <button class="btn" type="submit">Place an order</button>
                         </form>
                         <a class="btn" href="/my-orders">My orders</a>

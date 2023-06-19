@@ -22,29 +22,27 @@ public class AddAssessmentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Assessment assessment = new Assessment();
-//        order.setTravelDistance(Double.valueOf(req.getParameter("travelDistance")));
-//        order.setTravelTime(Double.valueOf(req.getParameter("travelTime")));
-//        order.setPaymentType(PaymentType.valueOf(req.getParameter("paymentType")));
-//        order.setCourierId(Integer.valueOf(req.getParameter("courier")));
-//        order.setClientId(Integer.valueOf(req.getParameter("clientId")));
-//        order.setRate(Integer.valueOf(req.getParameter("transport")));
-//        order.setTotalAmount(Double.valueOf(req.getParameter("totalAmount")));
-//        order.setStatus(Status.valueOf(req.getParameter("status")));
-//
-//        Connection connection = (Connection) getServletContext().getAttribute("dbconnection");
-//
-//        ApplicationDAO dao = new ApplicationDAO();
-//        DBResult dbResult = null;
-//        try {
-//            dbResult = dao.addOrder(order, connection);
-//        } catch (ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        req.setAttribute("DBResult", dbResult);
-//
-//        RequestDispatcher reqd = req.getRequestDispatcher("my-orders");
-//        reqd.forward(req, resp);
+        assessment.setTimeliness(Integer.valueOf(req.getParameter("timeliness")));
+        assessment.setCondition(Integer.valueOf(req.getParameter("condition")));
+        assessment.setCommunication(Integer.valueOf(req.getParameter("communication")));
+        assessment.setClientId(Integer.valueOf(req.getParameter("clientId")));
+        assessment.setCourierId(Integer.valueOf(req.getParameter("courierId")));
+        assessment.setOrderId(Integer.valueOf(req.getParameter("orderId")));
+
+
+
+        Connection connection = (Connection) getServletContext().getAttribute("dbconnection");
+
+        ApplicationDAO dao = new ApplicationDAO();
+        DBResult dbResult = null;
+        try {
+            dbResult = dao.addAssessment(assessment, connection);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        req.setAttribute("DBResult", dbResult);
+
+        RequestDispatcher reqd = req.getRequestDispatcher("my-assessments");
+        reqd.forward(req, resp);
     }
 }
