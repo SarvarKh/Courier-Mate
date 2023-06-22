@@ -19,8 +19,11 @@ import java.util.List;
 public class GetOrderDetailServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Integer orderId = Integer.valueOf(req.getParameter("orderId"));
-        Integer courierId = Integer.valueOf(req.getParameter("courierId"));
+        Integer orderId = req.getParameter("orderId") != null ?
+                Integer.valueOf(req.getParameter("orderId")) : (Integer) req.getAttribute("orderId");
+        Integer courierId = req.getParameter("courierId") != null ?
+                Integer.valueOf(req.getParameter("courierId")) : (Integer) req.getAttribute("courierId");
+
         Connection connection = (Connection) getServletContext().getAttribute("dbconnection");
 
         ApplicationDAO dao = new ApplicationDAO();

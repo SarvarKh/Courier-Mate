@@ -53,6 +53,43 @@
                         <label for="status" class="form-label">Status</label>
                         <input value="<%=order.getStatus()%>" name="status" type="text" class="form-control" id="status" aria-label="readonly input example" readonly>
                     </div>
+                    <br>
+
+                    <% if (order.getStatus().toString().equals("PLACED")) {%>
+                        <form action="update-order-status" method="post" class="rounded text-bg-secondary p-1">
+                            <div class="md-1">
+                                <label for="deliveryStatus" class="form-label">Delivery status</label>
+                                <select class="form-select" id="deliveryStatus" name="deliveryStatus" required>
+                                    <option selected disabled value="">Choose...</option>
+                                    <option value="INVOICED">Confirm delivery and issue invoice.</option>
+                                    <option value="CANCELLED">Cancel this order</option>
+                                </select>
+
+<%--                                Order object--%>
+                                <input type="hidden" name="id" value="<%=order.getId()%>">
+                                <input type="hidden" name="travelDistance" value="<%=order.getTravelDistance()%>">
+                                <input type="hidden" name="travelTime" value="<%=order.getTravelTime()%>">
+                                <input type="hidden" name="paymentType" value="<%=order.getPaymentType()%>">
+                                <input type="hidden" name="courierId" value="<%=order.getCourierId()%>">
+                                <input type="hidden" name="clientId" value="<%=order.getClientId()%>">
+                                <input type="hidden" name="rate" value="<%=order.getRate()%>">
+                                <input type="hidden" name="totalAmount" value="<%=order.getTotalAmount()%>">
+                                <input type="hidden" name="status" value="<%=order.getStatus()%>">
+                            </div>
+
+                            <button class="btn btn-primary" type="submit" id="submit">Submit</button>
+                        </form>
+                    <% } else if (order.getStatus().toString().equals("CANCELLED")) { %>
+                        <div class="md-1 rounded text-bg-warning p-1">
+                            <label for="CANCELLED" class="form-label">Status</label>
+                            <input value="This order was cancelled" name="CANCELLED" type="text" class="form-control" id="CANCELLED" aria-label="readonly input example" readonly>
+                        </div>
+                    <% } else { %>
+                        <div class="md-1 rounded text-bg-success p-1">
+                            <label for="INVOICED" class="form-label">INVOICED</label>
+                            <input value="This order was delivered and the invoice was issued" name="INVOICED" type="text" class="form-control" id="INVOICED" aria-label="readonly input example" readonly>
+                        </div>
+                    <% } %>
                 </div>
                 <% if (clientFirstName == null || courierFirstName == null) {%>
                     <%@include file="addassessment.jsp"%>

@@ -56,7 +56,17 @@
                                 <td><%=orders.get(i).getRate()%></td>
                                 <td>$ <%=orders.get(i).getTotalAmount()%></td>
                                 <% totalAmount += orders.get(i).getTotalAmount(); %>
-                                <td><%=orders.get(i).getStatus()%></td>
+                                <td value="<%=orders.get(i).getStatus()%>" class="
+                                    <% if (orders.get(i).getStatus().toString().equals("INVOICED")) {%>
+                                        <%= "text-bg-success" %>
+                                    <% }else if(orders.get(i).getStatus().toString().equals("CANCELLED")){ %>
+                                        <%= "text-bg-warning" %>
+                                    <% } else { %>
+                                        <%= "text-bg-secondary" %>
+                                    <% } %>
+                                    ">
+                                    <%=orders.get(i).getStatus()%>
+                                </td>
                                 <td>
                                     <form action="order-detail" method="post">
                                         <input type="hidden" name="courierId" value="<%=orders.get(i).getCourierId()%>">

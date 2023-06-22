@@ -25,7 +25,7 @@ public class GetOrdersForClientServlet extends HttpServlet {
 //    }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer clientId = (Integer) req.getSession().getAttribute("clientId");
         Connection connection = (Connection) getServletContext().getAttribute("dbconnection");
 

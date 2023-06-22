@@ -291,4 +291,28 @@ public class ApplicationDAO {
 
         return new DBResult(message, success, null);
     }
+
+    public DBResult updateOrder(Order order, Connection connection) throws SQLException {
+        String query = "{call update_order_status(?,?,?,?,?,?,?,?,?,?,?)}";
+
+        CallableStatement statement = connection.prepareCall(query);
+        statement.setInt(1, order.getId());
+        statement.setDouble(2, order.getTravelDistance());
+        statement.setDouble(3, order.getTravelTime());
+        statement.setString(4, String.valueOf(order.getPaymentType()));
+        statement.setInt(5, order.getCourierId());
+        statement.setInt(6, order.getClientId());
+        statement.setInt(7, order.getRate());
+        statement.setDouble(8, order.getTotalAmount());
+        statement.setString(9, String.valueOf(order.getStatus()));
+
+        statement.registerOutParameter(10, Types.VARCHAR);
+        statement.registerOutParameter(11, Types.BOOLEAN);
+        statement.executeUpdate();
+
+        String message = statement.getString(10);
+        boolean success = statement.getBoolean(11);
+
+        return new DBResult(message, success, null);
+    }
 }
