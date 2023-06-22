@@ -64,7 +64,6 @@
                                     <% } else { %>
                                         <%= "text-bg-secondary" %>
                                     <% } %>
-<%--                                    orders.get(i).getStatus().toString().equals("INVOICED") ? "text-bg-success p-1" : "text-bg-secondary p-1"--%>
                                     ">
                                     <%=orders.get(i).getStatus()%>
                                 </td>
@@ -80,7 +79,7 @@
                             <%}%>
                             <tr>
                                 <td colspan="9">
-                                    <strong>GRAND TOTAL $ <%=totalAmount%></strong>
+                                    <strong>GRAND TOTAL $ <%= Math.floor(totalAmount * 100) / 100 %></strong>
                                 </td>
                             </tr>
                             <% } else { %>

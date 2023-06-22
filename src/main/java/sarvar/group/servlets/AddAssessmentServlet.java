@@ -3,9 +3,6 @@ package sarvar.group.servlets;
 import sarvar.group.dao.ApplicationDAO;
 import sarvar.group.dao.DBResult;
 import sarvar.group.domains.Assessment;
-import sarvar.group.domains.Order;
-import sarvar.group.domains.util.PaymentType;
-import sarvar.group.domains.util.Status;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -42,7 +39,7 @@ public class AddAssessmentServlet extends HttpServlet {
         }
         req.setAttribute("DBResult", dbResult);
 
-        RequestDispatcher reqd = req.getRequestDispatcher("my-assessments");
+        RequestDispatcher reqd = req.getRequestDispatcher("order-detail");
         reqd.forward(req, resp);
     }
 }

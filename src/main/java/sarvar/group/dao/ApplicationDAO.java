@@ -315,4 +315,28 @@ public class ApplicationDAO {
 
         return new DBResult(message, success, null);
     }
+
+    public List<Order> getInvoicedOrders(Integer clientId, Connection connection) throws SQLException {
+        List<Order> orders = new ArrayList<>();
+        String query = "select * from \"order\" where client_id =" +clientId+ " and status = 'INVOICED';";
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            Integer id = resultSet.getInt("id");
+            Double travelDistance = resultSet.getDouble("travel_distance");
+            Double travelTime = resultSet.getDouble("travel_time");
+            PaymentType paymentType = PaymentType.valueOf(resultSet.getString("payment_type"));
+            Integer courierId = resultSet.getInt("courier_id");
+            Integer clientIdDB = resultSet.getInt("client_id");
+            Integer rate = resultSet.getInt("rate");
+            Double totalAmount = resultSet.getDouble("total_amount");
+            Status status = Status.valueOf(resultSet.getString("status"));
+
+            Order order = new Order(id, travelDistance, travelTime, paymentType, courierId, clientIdDB, rate, totalAmount, status);
+            orders.add(order);
+        }
+        return orders;
+    }
 }

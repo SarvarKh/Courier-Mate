@@ -79,7 +79,7 @@
                             <%}%>
                             <tr>
                                 <td colspan="9">
-                                    <strong>GRAND TOTAL $ <%=totalAmount%></strong>
+                                    <strong>GRAND TOTAL $ <%= Math.floor(totalAmount * 100) / 100 %></strong>
                                 </td>
                             </tr>
                             <% } else { %>
