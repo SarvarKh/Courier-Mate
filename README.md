@@ -73,9 +73,13 @@ This project includes the following features:
 ## Technologies Used
 This project was built using the following technologies:
 
-- Java 17.0.2
+- Java 17.0.2 (Servlets, Filters, Listeners)
 - Maven
-- Dependencies (Lombok, Javax.servlet)
+- Dependencies (Lombok, Javax.servlet, Tomcat, postgresql, jsp-api, jstl, json, jquery)
+- JavaScript, jQuery and AJAX
+- Yandex Map APIs
+- Postgresql and PGAdmin 4
+- Bootstrap 5.3
 
 ## Authors
 
