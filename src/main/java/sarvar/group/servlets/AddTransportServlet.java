@@ -41,7 +41,7 @@ public class AddTransportServlet extends HttpServlet {
         req.setAttribute("DBResult", dbResult);
 
 
-        RequestDispatcher reqd = req.getRequestDispatcher("courier");
+        RequestDispatcher reqd = req.getRequestDispatcher("courier-transports");
         reqd.forward(req, resp);
     }
 }
