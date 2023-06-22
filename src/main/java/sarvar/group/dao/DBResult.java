@@ -1,4 +1,4 @@
-package sarvar.group.service;
+package sarvar.group.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,4 +12,5 @@ import lombok.Setter;
 public class DBResult {
     private String message;
     private boolean success;
+    private Integer dBId;
 }

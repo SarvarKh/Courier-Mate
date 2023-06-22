@@ -17,12 +17,15 @@
                     </li>
                 </ul>
                 <div class="d-flex">
-                    <%--          <ul class="navbar-nav me-auto mb-2 mb-lg-0">--%>
-                    <%--            <a class="dropdown-item" href="/views/authorization/couriersignup.jsp">Register</a>--%>
-                    <%--          </ul>--%>
-
-                    <a class="btn " href="#">Profile</a>
-                    <a class="btn " href="#">Deliveries</a>
+                    <form action="/all-couriers" method="post" style="margin-block-end: 0px">
+                        <button class="btn" type="submit">Place an order</button>
+                    </form>
+                    <form action="/my-orders" method="post" style="margin-block-end: 0px">
+                        <button class="btn" type="submit">My orders</button>
+                    </form>
+                    <form action="/invoiced-orders" method="post" style="margin-block-end: 0px">
+                        <button class="btn" type="submit">Invoiced orders</button>
+                    </form>
                     <div class="accordion accordion-flush" id="accordionFlushExample">
                         <div class="accordion-item">
                             <h2 class="accordion-header">

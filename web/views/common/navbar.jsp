@@ -10,7 +10,7 @@
             <a class="nav-link active" aria-current="page" href="/home.jsp#home">Home</a>
           </li>
             <li class="nav-item">
-                <a class="nav-link" href="/views/order.jsp">Order Delivery</a>
+                <a class="nav-link" href="/views/client/addorder.jsp">Order Delivery</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/home.jsp#safety">Safety</a>
@@ -33,10 +33,10 @@
                     <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <a class="btn" href="/views/authorization/couriersignup.jsp" role="button">Sign up as Courier</a>
-                                <a class="btn" href="/views/authorization/clientsignup.jsp" role="button">Sign up as Client</a>
-                                <a class="btn" href="/views/authorization/courierlogin.jsp" role="button">Log in as Courier</a>
-                                <a class="btn" href="/views/authorization/clientlogin.jsp" role="button">Log in as Client</a>
+                                <a class="btn" href="couriersignup" role="button">Sign up as Courier</a>
+                                <a class="btn" href="clientsignup" role="button">Sign up as Client</a>
+                                <a class="btn" href="courierlogin" role="button">Log in as Courier</a>
+                                <a class="btn" href="clientlogin" role="button">Log in as Client</a>
                             </div>
                         </div>
                     </div>

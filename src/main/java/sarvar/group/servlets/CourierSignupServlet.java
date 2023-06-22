@@ -2,8 +2,8 @@ package sarvar.group.servlets;
 
 import sarvar.group.domains.Courier;
 import sarvar.group.domains.util.Active;
-import sarvar.group.service.DBConnection;
-import sarvar.group.service.DBResult;
+import sarvar.group.dao.ApplicationDAO;
+import sarvar.group.dao.DBResult;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,12 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 @WebServlet("/couriersignup")
 public class CourierSignupServlet extends HttpServlet {
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher reqDisp = req.getRequestDispatcher("/views/authorization/couriersignup.jsp");
+        reqDisp.forward(req, resp);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Collect data from the form
         Courier courier = new Courier();
         String email = req.getParameter("email");
 
@@ -29,10 +37,13 @@ public class CourierSignupServlet extends HttpServlet {
         courier.setActive(Active.valueOf(req.getParameter("active")));
         courier.setPassword(req.getParameter("password"));
 
-        DBConnection connection = new DBConnection();
+        Connection connection = (Connection) getServletContext().getAttribute("dbconnection");
+
+        // call DAO layer and add courier
+        ApplicationDAO dao = new ApplicationDAO();
         DBResult dbResult = null;
         try {
-            dbResult = connection.addCorier(courier);
+            dbResult = dao.addCorier(courier, connection);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
@@ -44,7 +55,7 @@ public class CourierSignupServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("email", email);
 
-            RequestDispatcher reqd = req.getRequestDispatcher("/views/courier/courier.jsp");//("/home.jsp"); //("/views/courier.jsp");
+            RequestDispatcher reqd = req.getRequestDispatcher("/views/authorization/courierlogin.jsp");
             reqd.forward(req, resp);
         } else {
             RequestDispatcher reqD = req.getRequestDispatcher("/views/authorization/couriersignup.jsp");
