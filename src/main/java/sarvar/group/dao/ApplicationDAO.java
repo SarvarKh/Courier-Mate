@@ -1,10 +1,7 @@
 package sarvar.group.dao;
 
 import sarvar.group.domains.*;
-import sarvar.group.domains.util.Active;
-import sarvar.group.domains.util.PaymentType;
-import sarvar.group.domains.util.Status;
-import sarvar.group.domains.util.TransportType;
+import sarvar.group.domains.util.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,7 +13,7 @@ public class ApplicationDAO {
     private static String dbPassword = null;
 
     public static DBResult addCorier(Courier courier, Connection connection) throws ClassNotFoundException, SQLException {
-        String query = "{call add_courier(?,?,?,?,?,?,?,?)}";
+        String query = "{call add_courier(?,?,?,?,?,?,?,?,?)}";
 
         CallableStatement statement = connection.prepareCall(query);
         statement.setString(1, courier.getFirstName());
@@ -25,18 +22,19 @@ public class ApplicationDAO {
         statement.setString(4, courier.getPhoneNumber());
         statement.setString(5, courier.getActive().toString());
         statement.setString(6, courier.getPassword());
-        statement.registerOutParameter(7, Types.VARCHAR);
-        statement.registerOutParameter(8, Types.BOOLEAN);
+        statement.setString(7, courier.getApproval().toString());
+        statement.registerOutParameter(8, Types.VARCHAR);
+        statement.registerOutParameter(9, Types.BOOLEAN);
         statement.executeUpdate();
 
-        String message = statement.getString(7);
-        boolean success = statement.getBoolean(8);
+        String message = statement.getString(8);
+        boolean success = statement.getBoolean(9);
 
-        return new DBResult(message, success, null);
+        return new DBResult(message, success, null, null);
     }
 
     public static DBResult loginCourier(String email, String password, Connection connection) throws ClassNotFoundException, SQLException {
-        String query = "{call login_courier(?,?,?,?,?)}";
+        String query = "{call login_courier(?,?,?,?,?,?)}";
 
         CallableStatement statement = connection.prepareCall(query);
         statement.setString(1, email);
@@ -44,13 +42,15 @@ public class ApplicationDAO {
         statement.registerOutParameter(3, Types.VARCHAR);
         statement.registerOutParameter(4, Types.BOOLEAN);
         statement.registerOutParameter(5, Types.INTEGER);
+        statement.registerOutParameter(6, Types.VARCHAR);
         statement.executeUpdate();
 
         String message = statement.getString(3);
         boolean success = statement.getBoolean(4);
         Integer courierId = statement.getInt(5);
+        String approval = statement.getString(6);
 
-        return new DBResult(message, success, courierId);
+        return new DBResult(message, success, courierId, approval);
     }
 
     public static DBResult addClient(Client client, Connection connection) throws ClassNotFoundException, SQLException {
@@ -69,7 +69,7 @@ public class ApplicationDAO {
         String message = statement.getString(6);
         boolean success = statement.getBoolean(7);
 
-        return new DBResult(message, success, null);
+        return new DBResult(message, success, null, null);
     }
 
     public static DBResult loginClient(String email, String password, Connection connection) throws ClassNotFoundException, SQLException {
@@ -87,7 +87,7 @@ public class ApplicationDAO {
         boolean success = statement.getBoolean(4);
         Integer clientId = statement.getInt(5);
 
-        return new DBResult(message, success, clientId);
+        return new DBResult(message, success, clientId, null);
     }
 
     public DBResult addTransport(Transport transport) throws ClassNotFoundException, SQLException {
@@ -106,7 +106,7 @@ public class ApplicationDAO {
         String message = statement.getString(4);
         boolean success = statement.getBoolean(5);
 
-        return new DBResult(message, success, null);
+        return new DBResult(message, success, null, null);
     }
 
 
@@ -150,7 +150,7 @@ public class ApplicationDAO {
 
     public List<Courier> getAllCourier(Connection connection) throws SQLException {
         List<Courier> couriers = new ArrayList<>();
-        String query = "select * from courier where active = 'ACCEPTING_ORDERS';";
+        String query = "select * from courier where active = 'ACCEPTING_ORDERS' and approval = 'APPROVED';";
 
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(query);
@@ -163,9 +163,10 @@ public class ApplicationDAO {
             String phoneNumber = resultSet.getString("phone_number");
             Active active = Active.valueOf(resultSet.getString("active"));
             String password = resultSet.getString("password");
+            Approval approval = Approval.valueOf(resultSet.getString("approval"));
 
 
-            Courier courier = new Courier(id, firstName, lastName, email, phoneNumber, active, password);
+            Courier courier = new Courier(id, firstName, lastName, email, phoneNumber, active, password, approval);
             couriers.add(courier);
         }
         return couriers;
@@ -190,7 +191,7 @@ public class ApplicationDAO {
         String message = statement.getString(9);
         boolean success = statement.getBoolean(10);
 
-        return new DBResult(message, success, null);
+        return new DBResult(message, success, null, null);
     }
 
     public List<Order> getOrders(Integer clientId, Connection connection) throws SQLException {
@@ -289,7 +290,7 @@ public class ApplicationDAO {
         String message = statement.getString(7);
         boolean success = statement.getBoolean(8);
 
-        return new DBResult(message, success, null);
+        return new DBResult(message, success, null, null);
     }
 
     public DBResult updateOrder(Order order, Connection connection) throws SQLException {
@@ -313,7 +314,7 @@ public class ApplicationDAO {
         String message = statement.getString(10);
         boolean success = statement.getBoolean(11);
 
-        return new DBResult(message, success, null);
+        return new DBResult(message, success, null, null);
     }
 
     public List<Order> getInvoicedOrders(Integer clientId, Connection connection) throws SQLException {
@@ -338,5 +339,70 @@ public class ApplicationDAO {
             orders.add(order);
         }
         return orders;
+    }
+
+    public DBResult loginAdmin(String email, String password, Connection connection) throws SQLException {
+        String query = "{call login_admin(?,?,?,?,?)}";
+
+        CallableStatement statement = connection.prepareCall(query);
+        statement.setString(1, email);
+        statement.setString(2, password);
+        statement.registerOutParameter(3, Types.VARCHAR);
+        statement.registerOutParameter(4, Types.BOOLEAN);
+        statement.registerOutParameter(5, Types.INTEGER);
+        statement.executeUpdate();
+
+        String message = statement.getString(3);
+        boolean success = statement.getBoolean(4);
+        Integer adminId = statement.getInt(5);
+
+        return new DBResult(message, success, adminId, null);
+    }
+
+    public List<Courier> getAllSubmittedCourier(Connection connection) throws SQLException {
+        List<Courier> couriers = new ArrayList<>();
+        String query = "select * from courier where active = 'ACCEPTING_ORDERS' and approval = 'SUBMITTED';";
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            Integer id = resultSet.getInt("id");
+            String firstName = resultSet.getString("first_name");
+            String lastName = resultSet.getString("last_name");
+            String email = resultSet.getString("email");
+            String phoneNumber = resultSet.getString("phone_number");
+            Active active = Active.valueOf(resultSet.getString("active"));
+            String password = resultSet.getString("password");
+            Approval approval = Approval.valueOf(resultSet.getString("approval"));
+
+
+            Courier courier = new Courier(id, firstName, lastName, email, phoneNumber, active, password, approval);
+            couriers.add(courier);
+        }
+        return couriers;
+    }
+
+    public DBResult updateCourier(Courier courier, Connection connection) throws SQLException {
+        String query = "{call update_courier_approval(?,?,?,?,?,?,?,?,?,?)}";
+
+        CallableStatement statement = connection.prepareCall(query);
+        statement.setInt(1, courier.getId());
+        statement.setString(2, courier.getFirstName());
+        statement.setString(3, courier.getLastName());
+        statement.setString(4, courier.getEmail());
+        statement.setString(5, courier.getPhoneNumber());
+        statement.setString(6, courier.getActive().toString());
+        statement.setString(7, courier.getPassword());
+        statement.setString(8, courier.getApproval().toString());
+
+        statement.registerOutParameter(9, Types.VARCHAR);
+        statement.registerOutParameter(10, Types.BOOLEAN);
+        statement.executeUpdate();
+
+        String message = statement.getString(9);
+        boolean success = statement.getBoolean(10);
+
+        return new DBResult(message, success, null, null);
     }
 }

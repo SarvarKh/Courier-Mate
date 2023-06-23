@@ -13,4 +13,5 @@ public class DBResult {
     private String message;
     private boolean success;
     private Integer dBId;
+    private String dBresponse;
 }

@@ -14,11 +14,11 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet("/courierlogin")
-public class CourierLoginServlet extends HttpServlet {
+@WebServlet("/adminlogin")
+public class AdminLoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher reqDisp = req.getRequestDispatcher("/views/authorization/courierlogin.jsp");
+        RequestDispatcher reqDisp = req.getRequestDispatcher("/views/authorization/adminlogin.jsp");
         reqDisp.forward(req, resp);
     }
 
@@ -33,9 +33,7 @@ public class CourierLoginServlet extends HttpServlet {
         ApplicationDAO applicationDAO = new ApplicationDAO();
         DBResult dbResult = null;
         try {
-            dbResult = applicationDAO.loginCourier(email, password, connection);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            dbResult = applicationDAO.loginAdmin(email, password, connection);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -43,18 +41,14 @@ public class CourierLoginServlet extends HttpServlet {
 
         if (dbResult.isSuccess()) {
             HttpSession session = req.getSession();
-            session.setAttribute("email", email);
-            session.setAttribute("courierId", dbResult.getDBId());
-            session.setAttribute("approval", dbResult.getDBresponse());
+            session.setAttribute("adminEmail", email);
+            session.setAttribute("adminId", dbResult.getDBId());
 
-            RequestDispatcher reqD = dbResult.getDBresponse().equals("APPROVED") ?
-                    req.getRequestDispatcher("courier-transports") : req.getRequestDispatcher("/views/courier/rejection.jsp");
+            RequestDispatcher reqD = req.getRequestDispatcher("all-submitted-couriers");
             reqD.forward(req, resp);
         } else {
-            RequestDispatcher reqD = req.getRequestDispatcher("/views/authorization/courierlogin.jsp");
+            RequestDispatcher reqD = req.getRequestDispatcher("/views/authorization/adminlogin.jsp");
             reqD.forward(req, resp);
         }
-
-
     }
 }

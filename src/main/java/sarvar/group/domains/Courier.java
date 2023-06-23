@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sarvar.group.domains.util.Active;
+import sarvar.group.domains.util.Approval;
 
 @Getter
 @Setter
@@ -18,4 +19,5 @@ public class Courier {
     private String phoneNumber;
     private Active active;
     private String password;
+    private Approval approval;
 }

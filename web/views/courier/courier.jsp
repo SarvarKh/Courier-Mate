@@ -16,7 +16,6 @@
             background-size: cover; height: 100%">
     <%@include file="navbarcourier.jsp"%>
     <div class="container">
-        <h1 style="color: #fff">Success</h1>
         <div class="d-flex">
             <%@include file="addtransport.jsp"%>
             <%@include file="showtransports.jsp"%>

@@ -4,6 +4,7 @@ import sarvar.group.domains.Courier;
 import sarvar.group.domains.util.Active;
 import sarvar.group.dao.ApplicationDAO;
 import sarvar.group.dao.DBResult;
+import sarvar.group.domains.util.Approval;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,6 +37,7 @@ public class CourierSignupServlet extends HttpServlet {
         courier.setPhoneNumber(req.getParameter("phoneNumber"));
         courier.setActive(Active.valueOf(req.getParameter("active")));
         courier.setPassword(req.getParameter("password"));
+        courier.setApproval(Approval.valueOf(req.getParameter("approval")));
 
         Connection connection = (Connection) getServletContext().getAttribute("dbconnection");
 

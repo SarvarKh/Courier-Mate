@@ -23,6 +23,7 @@
 <%--          <ul class="navbar-nav me-auto mb-2 mb-lg-0">--%>
 <%--            <a class="dropdown-item" href="/views/authorization/couriersignup.jsp">Register</a>--%>
 <%--          </ul>--%>
+            <a class="btn" href="adminlogin" role="button" style="padding: 16px">Admin</a>
             <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item">
                     <h2 class="accordion-header">
