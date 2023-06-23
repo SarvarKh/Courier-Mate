@@ -45,8 +45,10 @@ public class CourierLoginServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("email", email);
             session.setAttribute("courierId", dbResult.getDBId());
+            session.setAttribute("approval", dbResult.getDBresponse());
 
-            RequestDispatcher reqD = req.getRequestDispatcher("courier-transports");
+            RequestDispatcher reqD = dbResult.getDBresponse().equals("APPROVED") ?
+                    req.getRequestDispatcher("courier-transports") : req.getRequestDispatcher("/views/courier/rejection.jsp");
             reqD.forward(req, resp);
         } else {
             RequestDispatcher reqD = req.getRequestDispatcher("/views/authorization/courierlogin.jsp");

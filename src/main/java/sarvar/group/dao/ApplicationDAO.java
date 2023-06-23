@@ -30,11 +30,11 @@ public class ApplicationDAO {
         String message = statement.getString(8);
         boolean success = statement.getBoolean(9);
 
-        return new DBResult(message, success, null);
+        return new DBResult(message, success, null, null);
     }
 
     public static DBResult loginCourier(String email, String password, Connection connection) throws ClassNotFoundException, SQLException {
-        String query = "{call login_courier(?,?,?,?,?)}";
+        String query = "{call login_courier(?,?,?,?,?,?)}";
 
         CallableStatement statement = connection.prepareCall(query);
         statement.setString(1, email);
@@ -42,13 +42,15 @@ public class ApplicationDAO {
         statement.registerOutParameter(3, Types.VARCHAR);
         statement.registerOutParameter(4, Types.BOOLEAN);
         statement.registerOutParameter(5, Types.INTEGER);
+        statement.registerOutParameter(6, Types.VARCHAR);
         statement.executeUpdate();
 
         String message = statement.getString(3);
         boolean success = statement.getBoolean(4);
         Integer courierId = statement.getInt(5);
+        String approval = statement.getString(6);
 
-        return new DBResult(message, success, courierId);
+        return new DBResult(message, success, courierId, approval);
     }
 
     public static DBResult addClient(Client client, Connection connection) throws ClassNotFoundException, SQLException {
@@ -67,7 +69,7 @@ public class ApplicationDAO {
         String message = statement.getString(6);
         boolean success = statement.getBoolean(7);
 
-        return new DBResult(message, success, null);
+        return new DBResult(message, success, null, null);
     }
 
     public static DBResult loginClient(String email, String password, Connection connection) throws ClassNotFoundException, SQLException {
@@ -85,7 +87,7 @@ public class ApplicationDAO {
         boolean success = statement.getBoolean(4);
         Integer clientId = statement.getInt(5);
 
-        return new DBResult(message, success, clientId);
+        return new DBResult(message, success, clientId, null);
     }
 
     public DBResult addTransport(Transport transport) throws ClassNotFoundException, SQLException {
@@ -104,7 +106,7 @@ public class ApplicationDAO {
         String message = statement.getString(4);
         boolean success = statement.getBoolean(5);
 
-        return new DBResult(message, success, null);
+        return new DBResult(message, success, null, null);
     }
 
 
@@ -189,7 +191,7 @@ public class ApplicationDAO {
         String message = statement.getString(9);
         boolean success = statement.getBoolean(10);
 
-        return new DBResult(message, success, null);
+        return new DBResult(message, success, null, null);
     }
 
     public List<Order> getOrders(Integer clientId, Connection connection) throws SQLException {
@@ -288,7 +290,7 @@ public class ApplicationDAO {
         String message = statement.getString(7);
         boolean success = statement.getBoolean(8);
 
-        return new DBResult(message, success, null);
+        return new DBResult(message, success, null, null);
     }
 
     public DBResult updateOrder(Order order, Connection connection) throws SQLException {
@@ -312,7 +314,7 @@ public class ApplicationDAO {
         String message = statement.getString(10);
         boolean success = statement.getBoolean(11);
 
-        return new DBResult(message, success, null);
+        return new DBResult(message, success, null, null);
     }
 
     public List<Order> getInvoicedOrders(Integer clientId, Connection connection) throws SQLException {
@@ -354,7 +356,7 @@ public class ApplicationDAO {
         boolean success = statement.getBoolean(4);
         Integer adminId = statement.getInt(5);
 
-        return new DBResult(message, success, adminId);
+        return new DBResult(message, success, adminId, null);
     }
 
     public List<Courier> getAllSubmittedCourier(Connection connection) throws SQLException {
@@ -401,6 +403,6 @@ public class ApplicationDAO {
         String message = statement.getString(9);
         boolean success = statement.getBoolean(10);
 
-        return new DBResult(message, success, null);
+        return new DBResult(message, success, null, null);
     }
 }
