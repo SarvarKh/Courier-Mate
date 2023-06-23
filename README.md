@@ -23,12 +23,27 @@ The courier registers in the system and offers his services: his own transport (
 </div>
 </div>
 
+## Entity types
+
+| Entity             | Type        |
+|--------------------|-------------|
+| Courier            | Key         |
+| Client             | Key         |
+| Admin              | Key         |
+| Order              | Associative |
+| Transport          | Key         |
+| Assessment         | Associative |
+
 ## Screenshots
 
 <div style="display: flex; flex-wrap: wrap">
 <div align="center">
-  <img src="image/01_console.png?raw=true" width="90%" height="auto"/>
-  <img src="image/02_console.png?raw=true" width="90%" height="auto"/>
+  <img src="image/1_order.png?raw=true" width="90%" height="auto"/>
+  <img src="image/2_my_orders.png?raw=true" width="45%" height="auto"/>
+  <img src="image/3_invoiced.png?raw=true" width="45%" height="auto"/>
+  <img src="image/4_order_details_add_assessment.png?raw=true" width="45%" height="auto"/>
+  <img src="image/5_order_details_get_assessment.png?raw=true" width="45%" height="auto"/>
+  <img src="image/6_add_transport.png?raw=true" width="90%" height="auto"/>
 </div>
 </div>
 
@@ -58,9 +73,13 @@ This project includes the following features:
 ## Technologies Used
 This project was built using the following technologies:
 
-- Java 17.0.2
+- Java 17.0.2 (Servlets, Filters, Listeners)
 - Maven
-- Dependencies (Lombok, Javax.servlet)
+- Dependencies (Lombok, Javax.servlet, Tomcat, postgresql, jsp-api, jstl, json, jquery)
+- JavaScript, jQuery and AJAX
+- Yandex Map APIs
+- Postgresql and PGAdmin 4
+- Bootstrap 5.3
 
 ## Authors
 
