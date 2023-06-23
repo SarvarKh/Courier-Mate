@@ -49,6 +49,7 @@
                   <label for="prepassword" class="form-label">Pre-password</label>
                   <input name="prepassword" type="password" class="form-control" id="prepassword" required>
               </div>
+              <input type="hidden" name="approval" type="text" id="approval" required value="SUBMITTED">
 
               <div class="alert alert-danger" role="alert" id="error_message" style="display: none">
                   A simple danger alert—check it out!

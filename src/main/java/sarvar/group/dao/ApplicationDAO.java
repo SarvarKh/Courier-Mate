@@ -1,10 +1,7 @@
 package sarvar.group.dao;
 
 import sarvar.group.domains.*;
-import sarvar.group.domains.util.Active;
-import sarvar.group.domains.util.PaymentType;
-import sarvar.group.domains.util.Status;
-import sarvar.group.domains.util.TransportType;
+import sarvar.group.domains.util.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,7 +13,7 @@ public class ApplicationDAO {
     private static String dbPassword = null;
 
     public static DBResult addCorier(Courier courier, Connection connection) throws ClassNotFoundException, SQLException {
-        String query = "{call add_courier(?,?,?,?,?,?,?,?)}";
+        String query = "{call add_courier(?,?,?,?,?,?,?,?,?)}";
 
         CallableStatement statement = connection.prepareCall(query);
         statement.setString(1, courier.getFirstName());
@@ -25,12 +22,13 @@ public class ApplicationDAO {
         statement.setString(4, courier.getPhoneNumber());
         statement.setString(5, courier.getActive().toString());
         statement.setString(6, courier.getPassword());
-        statement.registerOutParameter(7, Types.VARCHAR);
-        statement.registerOutParameter(8, Types.BOOLEAN);
+        statement.setString(7, courier.getApproval().toString());
+        statement.registerOutParameter(8, Types.VARCHAR);
+        statement.registerOutParameter(9, Types.BOOLEAN);
         statement.executeUpdate();
 
-        String message = statement.getString(7);
-        boolean success = statement.getBoolean(8);
+        String message = statement.getString(8);
+        boolean success = statement.getBoolean(9);
 
         return new DBResult(message, success, null);
     }
@@ -150,7 +148,7 @@ public class ApplicationDAO {
 
     public List<Courier> getAllCourier(Connection connection) throws SQLException {
         List<Courier> couriers = new ArrayList<>();
-        String query = "select * from courier where active = 'ACCEPTING_ORDERS';";
+        String query = "select * from courier where active = 'ACCEPTING_ORDERS' and approval = 'APPROVED';";
 
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(query);
@@ -163,9 +161,10 @@ public class ApplicationDAO {
             String phoneNumber = resultSet.getString("phone_number");
             Active active = Active.valueOf(resultSet.getString("active"));
             String password = resultSet.getString("password");
+            Approval approval = Approval.valueOf(resultSet.getString("approval"));
 
 
-            Courier courier = new Courier(id, firstName, lastName, email, phoneNumber, active, password);
+            Courier courier = new Courier(id, firstName, lastName, email, phoneNumber, active, password, approval);
             couriers.add(courier);
         }
         return couriers;
