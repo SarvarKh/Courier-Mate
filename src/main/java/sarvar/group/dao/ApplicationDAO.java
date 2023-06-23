@@ -338,4 +338,69 @@ public class ApplicationDAO {
         }
         return orders;
     }
+
+    public DBResult loginAdmin(String email, String password, Connection connection) throws SQLException {
+        String query = "{call login_admin(?,?,?,?,?)}";
+
+        CallableStatement statement = connection.prepareCall(query);
+        statement.setString(1, email);
+        statement.setString(2, password);
+        statement.registerOutParameter(3, Types.VARCHAR);
+        statement.registerOutParameter(4, Types.BOOLEAN);
+        statement.registerOutParameter(5, Types.INTEGER);
+        statement.executeUpdate();
+
+        String message = statement.getString(3);
+        boolean success = statement.getBoolean(4);
+        Integer adminId = statement.getInt(5);
+
+        return new DBResult(message, success, adminId);
+    }
+
+    public List<Courier> getAllSubmittedCourier(Connection connection) throws SQLException {
+        List<Courier> couriers = new ArrayList<>();
+        String query = "select * from courier where active = 'ACCEPTING_ORDERS' and approval = 'SUBMITTED';";
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            Integer id = resultSet.getInt("id");
+            String firstName = resultSet.getString("first_name");
+            String lastName = resultSet.getString("last_name");
+            String email = resultSet.getString("email");
+            String phoneNumber = resultSet.getString("phone_number");
+            Active active = Active.valueOf(resultSet.getString("active"));
+            String password = resultSet.getString("password");
+            Approval approval = Approval.valueOf(resultSet.getString("approval"));
+
+
+            Courier courier = new Courier(id, firstName, lastName, email, phoneNumber, active, password, approval);
+            couriers.add(courier);
+        }
+        return couriers;
+    }
+
+    public DBResult updateCourier(Courier courier, Connection connection) throws SQLException {
+        String query = "{call update_courier_approval(?,?,?,?,?,?,?,?,?,?)}";
+
+        CallableStatement statement = connection.prepareCall(query);
+        statement.setInt(1, courier.getId());
+        statement.setString(2, courier.getFirstName());
+        statement.setString(3, courier.getLastName());
+        statement.setString(4, courier.getEmail());
+        statement.setString(5, courier.getPhoneNumber());
+        statement.setString(6, courier.getActive().toString());
+        statement.setString(7, courier.getPassword());
+        statement.setString(8, courier.getApproval().toString());
+
+        statement.registerOutParameter(9, Types.VARCHAR);
+        statement.registerOutParameter(10, Types.BOOLEAN);
+        statement.executeUpdate();
+
+        String message = statement.getString(9);
+        boolean success = statement.getBoolean(10);
+
+        return new DBResult(message, success, null);
+    }
 }
